@@ -1,0 +1,60 @@
+{
+  "yearly_progress": [
+    { "year": "2020", "claims_filed": 1200, "claims_granted": 450, "schemes_implemented": 3 },
+    { "year": "2021", "claims_filed": 1850, "claims_granted": 720, "schemes_implemented": 5 },
+    { "year": "2022", "claims_filed": 2300, "claims_granted": 1100, "schemes_implemented": 6 },
+    { "year": "2023", "claims_filed": 2800, "claims_granted": 1650, "schemes_implemented": 7 },
+    { "year": "2024", "claims_filed": 1200, "claims_granted": 580, "schemes_implemented": 8 }
+  ],
+  "state_coverage": [
+    { "state": "Odisha", "total_claims": 850, "granted": 420, "pending": 280, "rejected": 150, "coverage_percent": 78 },
+    { "state": "Jharkhand", "total_claims": 1200, "granted": 580, "pending": 420, "rejected": 200, "coverage_percent": 65 },
+    { "state": "Madhya Pradesh", "total_claims": 950, "granted": 480, "pending": 320, "rejected": 150, "coverage_percent": 72 },
+    { "state": "Chhattisgarh", "total_claims": 720, "granted": 380, "pending": 220, "rejected": 120, "coverage_percent": 80 },
+    { "state": "Rajasthan", "total_claims": 650, "granted": 320, "pending": 250, "rejected": 80, "coverage_percent": 69 },
+    { "state": "Meghalaya", "total_claims": 420, "granted": 250, "pending": 120, "rejected": 50, "coverage_percent": 85 },
+    { "state": "Assam", "total_claims": 380, "granted": 180, "pending": 150, "rejected": 50, "coverage_percent": 62 }
+  ],
+  "asset_distribution": [
+    { "type": "forest", "count": 245, "total_area": "12450 hectares" },
+    { "type": "farm", "count": 180, "total_area": "8900 hectares" },
+    { "type": "homestead", "count": 95, "total_area": "950 hectares" },
+    { "type": "pond", "count": 65, "total_area": "325 hectares" }
+  ],
+  "scheme_performance": [
+    { "scheme": "MGNREGA", "target": 100000, "achieved": 92000, "percent": 92 },
+    { "scheme": "PM-KISAN", "target": 150000, "achieved": 127500, "percent": 85 },
+    { "scheme": "PMAY-G", "target": 60000, "achieved": 46800, "percent": 78 },
+    { "scheme": "Van Dhan Vikas", "target": 25000, "achieved": 17000, "percent": 68 },
+    { "scheme": "Ujjwala Yojana", "target": 80000, "achieved": 71200, "percent": 89 }
+  ],
+  "monthly_complaints": [
+    { "month": "Jan 2024", "filed": 45, "resolved": 38 },
+    { "month": "Feb 2024", "filed": 52, "resolved": 41 },
+    { "month": "Mar 2024", "filed": 38, "resolved": 45 },
+    { "month": "Apr 2024", "filed": 28, "resolved": 35 }
+  ],
+  "dss_recommendations": [
+    {
+      "priority": "High",
+      "category": "Scheme Linkage",
+      "description": "1,250 FRA holders in Odisha not linked to PM-KISAN scheme",
+      "impact": "Potential annual benefit of ₹75 lakh",
+      "action": "Verify land records and process applications"
+    },
+    {
+      "priority": "Medium",
+      "category": "Infrastructure",
+      "description": "45 villages lack proper road connectivity affecting scheme implementation",
+      "impact": "Delayed delivery of benefits to 8,900 beneficiaries",
+      "action": "Prioritize under PMGSY and MGNREGA road works"
+    },
+    {
+      "priority": "High",
+      "category": "Water Security",
+      "description": "Low water table in 23 districts affecting agricultural productivity",
+      "impact": "Risk to food security for 15,600 tribal families",
+      "action": "Implement Jal Jeevan Mission and watershed management"
+    }
+  ]
+}

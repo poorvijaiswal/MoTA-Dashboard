@@ -1,0 +1,92 @@
+{
+  "schemes": [
+    {
+      "id": "S001",
+      "name": "PM-KISAN",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "status": "implemented",
+      "progress_percent": 85,
+      "policy_text": "Direct income support of Rs. 6000 per year to all landholding farmers' families having cultivable land, paid in three equal installments of Rs. 2000 each.",
+      "beneficiaries": 125000,
+      "budget_allocated": 750000000,
+      "budget_utilized": 637500000
+    },
+    {
+      "id": "S002",
+      "name": "MGNREGA",
+      "ministry": "Ministry of Rural Development",
+      "status": "implemented",
+      "progress_percent": 92,
+      "policy_text": "Guaranteed 100 days of wage employment in a financial year to every household whose adult members volunteer to do unskilled manual work.",
+      "beneficiaries": 89000,
+      "budget_allocated": 445000000,
+      "budget_utilized": 409400000
+    },
+    {
+      "id": "S003",
+      "name": "Van Dhan Vikas Yojana",
+      "ministry": "Ministry of Tribal Affairs",
+      "status": "sanctioned",
+      "progress_percent": 68,
+      "policy_text": "An initiative for value addition, branding & marketing of tribal products including Minor Forest Produce (MFP) through establishment of Van Dhan Kendras.",
+      "beneficiaries": 15600,
+      "budget_allocated": 156000000,
+      "budget_utilized": 106080000
+    },
+    {
+      "id": "S004",
+      "name": "PMAY-G (Tribal Component)",
+      "ministry": "Ministry of Rural Development",
+      "status": "implemented",
+      "progress_percent": 78,
+      "policy_text": "Provide pucca house with basic amenities to all rural families living in kutcha and dilapidated houses by 2024, with special focus on tribal areas.",
+      "beneficiaries": 45000,
+      "budget_allocated": 900000000,
+      "budget_utilized": 702000000
+    },
+    {
+      "id": "S005",
+      "name": "Pradhan Mantri Ujjwala Yojana",
+      "ministry": "Ministry of Petroleum & Natural Gas",
+      "status": "implemented",
+      "progress_percent": 89,
+      "policy_text": "Provide LPG connections to women from BPL households, with special provisions for tribal communities to reduce their dependence on fossil fuels.",
+      "beneficiaries": 67800,
+      "budget_allocated": 203400000,
+      "budget_utilized": 181026000
+    },
+    {
+      "id": "S006",
+      "name": "Tribal Sub Plan",
+      "ministry": "Ministry of Tribal Affairs",
+      "status": "available",
+      "progress_percent": 45,
+      "policy_text": "A comprehensive plan for socio-economic development of tribal communities including education, health, livelihood and infrastructure development in scheduled areas.",
+      "beneficiaries": 234000,
+      "budget_allocated": 1170000000,
+      "budget_utilized": 526500000
+    },
+    {
+      "id": "S007",
+      "name": "PMFBY (Tribal Areas)",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "status": "sanctioned",
+      "progress_percent": 62,
+      "policy_text": "Crop insurance scheme providing financial support to farmers suffering crop loss/damage arising out of unforeseen events, with subsidized premium for tribal farmers.",
+      "beneficiaries": 28700,
+      "budget_allocated": 287000000,
+      "budget_utilized": 177940000
+    },
+    {
+      "id": "S008",
+      "name": "Skill Development for Tribal Youth",
+      "ministry": "Ministry of Skill Development & Entrepreneurship",
+      "status": "implemented",
+      "progress_percent": 71,
+      "policy_text": "Skill training programs specifically designed for tribal youth focusing on traditional crafts, modern technology and entrepreneurship development.",
+      "beneficiaries": 12400,
+      "budget_allocated": 124000000,
+      "budget_utilized": 88040000
+    }
+  ]
+}

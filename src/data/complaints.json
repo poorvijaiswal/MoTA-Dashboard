@@ -1,0 +1,92 @@
+{
+  "complaints": [
+    {
+      "id": "C001",
+      "user": "Raman Munda",
+      "category": "claim",
+      "text": "My FRA claim application has been pending for over 8 months without any update. I have submitted all required documents but haven't received any communication from the district office.",
+      "status": "in-progress",
+      "assigned_to": "District Collector, Mayurbhanj",
+      "filed_date": "2024-02-15",
+      "last_updated": "2024-03-10",
+      "resolution_note": "Case under review. Site verification scheduled for next week."
+    },
+    {
+      "id": "C002",
+      "user": "Sunita Oraon",
+      "category": "scheme",
+      "text": "I was eligible for PMAY-G scheme but my name was not included in the beneficiary list despite multiple applications. Need assistance to understand the selection process.",
+      "status": "pending",
+      "assigned_to": "Block Development Officer, Ranchi",
+      "filed_date": "2024-03-20",
+      "last_updated": "2024-03-20",
+      "resolution_note": null
+    },
+    {
+      "id": "C003",
+      "user": "Birsa Khalkho",
+      "category": "land",
+      "text": "Local forest department is preventing us from accessing traditional forest area that our community has been using for generations. They claim we don't have proper documentation.",
+      "status": "resolved",
+      "assigned_to": "Forest Range Officer, Khunti",
+      "filed_date": "2024-01-08",
+      "last_updated": "2024-02-28",
+      "resolution_note": "CFR rights documented and community access restored. Proper signage installed to prevent future conflicts."
+    },
+    {
+      "id": "C004",
+      "user": "Kamala Bhil",
+      "category": "scheme",
+      "text": "MGNREGA work allocation in our village is not transparent. Some families get more days of work while others get very few. Request for fair distribution system.",
+      "status": "in-progress",
+      "assigned_to": "Panchayat Development Officer, Banswara",
+      "filed_date": "2024-03-05",
+      "last_updated": "2024-03-25",
+      "resolution_note": "Investigation ongoing. Gram Panchayat meeting called to discuss work allocation process."
+    },
+    {
+      "id": "C005",
+      "user": "John Khasi",
+      "category": "land",
+      "text": "Boundary dispute with neighboring non-tribal farmers who are claiming part of our community forest land. Need survey and proper demarcation.",
+      "status": "pending",
+      "assigned_to": "Deputy Commissioner, South West Khasi Hills",
+      "filed_date": "2024-03-28",
+      "last_updated": "2024-03-28",
+      "resolution_note": null
+    },
+    {
+      "id": "C006",
+      "user": "Ramesh Gond",
+      "category": "scheme",
+      "text": "Van Dhan Kendra in our area is not functioning properly. Equipment is damaged and no training has been provided to process forest produce effectively.",
+      "status": "resolved",
+      "assigned_to": "District Tribal Development Officer, Chhindwara",
+      "filed_date": "2024-02-01",
+      "last_updated": "2024-03-15",
+      "resolution_note": "Equipment repaired and new batch of training completed. Kendra is now operational with improved facilities."
+    },
+    {
+      "id": "C007",
+      "user": "Sita Korku",
+      "category": "claim",
+      "text": "My individual forest rights claim was rejected without proper explanation. I have been cultivating this land for over 15 years and have witness testimonies.",
+      "status": "pending",
+      "assigned_to": "Sub-Divisional Magistrate, Betul",
+      "filed_date": "2024-03-12",
+      "last_updated": "2024-03-12",
+      "resolution_note": null
+    },
+    {
+      "id": "C008",
+      "user": "Mary Garo",
+      "category": "land",
+      "text": "Illegal mining activities near our village are affecting water sources and traditional grazing areas. Need immediate intervention to stop environmental damage.",
+      "status": "in-progress",
+      "assigned_to": "Pollution Control Board, Meghalaya",
+      "filed_date": "2024-03-18",
+      "last_updated": "2024-04-02",
+      "resolution_note": "Site inspection completed. Show cause notice issued to mining company. Compliance monitoring ongoing."
+    }
+  ]
+}

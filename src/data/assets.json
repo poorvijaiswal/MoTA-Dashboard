@@ -1,0 +1,114 @@
+{
+  "assets": [
+    {
+      "id": "A001",
+      "type": "forest",
+      "location": "Dense Forest Block - Jhalkobad",
+      "coordinates": [86.7347, 22.2587],
+      "source": "satellite",
+      "area": "125.5 hectares",
+      "status": "Protected",
+      "last_surveyed": "2024-01-15",
+      "biodiversity_index": 0.85
+    },
+    {
+      "id": "A002",
+      "type": "farm",
+      "location": "Agricultural Land - Bandgaon",
+      "coordinates": [85.3096, 23.3441],
+      "source": "ground",
+      "area": "45.2 hectares",
+      "status": "Cultivated",
+      "last_surveyed": "2024-02-10",
+      "crop_type": "Paddy & Maize"
+    },
+    {
+      "id": "A003",
+      "type": "pond",
+      "location": "Community Water Body - Khunti",
+      "coordinates": [85.2697, 23.0715],
+      "source": "satellite",
+      "area": "2.8 hectares",
+      "status": "Active",
+      "last_surveyed": "2024-01-28",
+      "water_quality": "Good"
+    },
+    {
+      "id": "A004",
+      "type": "homestead",
+      "location": "Tribal Settlement - Bhanwar",
+      "coordinates": [73.7125, 24.5854],
+      "source": "ground",
+      "area": "12.0 hectares",
+      "status": "Occupied",
+      "last_surveyed": "2024-02-05",
+      "household_count": 45
+    },
+    {
+      "id": "A005",
+      "type": "forest",
+      "location": "Reserved Forest - Kotra",
+      "coordinates": [74.4479, 23.5451],
+      "source": "satellite",
+      "area": "89.3 hectares",
+      "status": "Reserved",
+      "last_surveyed": "2024-01-20",
+      "biodiversity_index": 0.78
+    },
+    {
+      "id": "A006",
+      "type": "farm",
+      "location": "Terraced Fields - Patalkot",
+      "coordinates": [78.9629, 22.0797],
+      "source": "ground",
+      "area": "67.8 hectares",
+      "status": "Cultivated",
+      "last_surveyed": "2024-02-15",
+      "crop_type": "Millets & Pulses"
+    },
+    {
+      "id": "A007",
+      "type": "pond",
+      "location": "Irrigation Pond - Betul",
+      "coordinates": [77.9017, 21.9048],
+      "source": "ground",
+      "area": "1.5 hectares",
+      "status": "Under Construction",
+      "last_surveyed": "2024-02-20",
+      "purpose": "Irrigation & Fishery"
+    },
+    {
+      "id": "A008",
+      "type": "homestead",
+      "location": "Village Cluster - Mawkyrwat",
+      "coordinates": [91.2868, 25.2993],
+      "source": "satellite",
+      "area": "18.7 hectares",
+      "status": "Occupied",
+      "last_surveyed": "2024-01-30",
+      "household_count": 72
+    },
+    {
+      "id": "A009",
+      "type": "forest",
+      "location": "Sacred Grove - Tura",
+      "coordinates": [90.2022, 25.5138],
+      "source": "ground",
+      "area": "25.4 hectares",
+      "status": "Sacred/Protected",
+      "last_surveyed": "2024-02-08",
+      "biodiversity_index": 0.92
+    },
+    {
+      "id": "A010",
+      "type": "farm",
+      "location": "Organic Farming Area - Dumka",
+      "coordinates": [87.2497, 24.2676],
+      "source": "satellite",
+      "area": "56.3 hectares",
+      "status": "Organic Certified",
+      "last_surveyed": "2024-02-12",
+      "crop_type": "Organic Rice & Vegetables"
+    }
+  ]
+}
