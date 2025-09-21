@@ -1,73 +1,103 @@
-# Welcome to your Lovable project
+# MoTA Dashboard
 
-## Project info
+Ministry of Tribal Affairs - Forest Rights Act Atlas and Decision Support System
 
-**URL**: https://lovable.dev/projects/ecdaa7ec-2513-4053-83aa-f4bb414b1a04
+## Project Overview
 
-## How can I edit this code?
+This is a comprehensive dashboard for the Ministry of Tribal Affairs (MoTA) that provides tools for managing Forest Rights Act (FRA) claims, monitoring schemes, tracking assets, and generating reports for tribal affairs management.
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **FRA Atlas**: Interactive mapping and visualization of Forest Rights Act areas
+- **FRA Claims Management**: Track and manage forest rights claims
+- **Patta Holders Database**: Manage records of land title holders
+- **Asset Management**: Track and monitor tribal area assets
+- **Scheme Management**: Oversee government schemes for tribal development
+- **Complaints System**: Handle and track complaints and grievances
+- **Decision Support System (DSS)**: Advanced analytics and reporting
+- **Reports Dashboard**: Comprehensive reporting and analytics
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ecdaa7ec-2513-4053-83aa-f4bb414b1a04) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (recommended version 18+)
+- npm or yarn package manager
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Step 1: Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2: Navigate to the project directory
+cd MoTA-Dashboard
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Step 3: Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Login Credentials
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+For demo purposes, use the following credentials:
+- **Username**: admin
+- **Password**: admin
 
-**Use GitHub Codespaces**
+## Technologies Used
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **Frontend Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **UI Components**: shadcn/ui components built on Radix UI
+- **Styling**: Tailwind CSS
+- **Routing**: React Router DOM
+- **State Management**: TanStack React Query
+- **Icons**: Lucide React
+- **Maps**: Leaflet with React-Leaflet
+- **Charts**: Recharts
 
-## What technologies are used for this project?
+## Project Structure
 
-This project is built with:
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   └── ...             # Custom components
+├── pages/              # Application pages/routes
+├── data/               # Static data and mock APIs
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── ...
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Development
 
-## How can I deploy this project?
+### Available Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/ecdaa7ec-2513-4053-83aa-f4bb414b1a04) and click on Share -> Publish.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
 
-## Can I connect a custom domain to my Lovable project?
+### Building for Production
 
-Yes, you can!
+```sh
+npm run build
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The built files will be in the `dist` directory.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Government Compliance
+
+This application is designed to meet Government of India standards for digital services and follows accessibility guidelines for government applications.
+
+## Support
+
+For technical support and documentation, please contact the development team.
+
+---
+
+**Ministry of Tribal Affairs**  
+Government of India
