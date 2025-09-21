@@ -7,6 +7,28 @@
       "status": "implemented",
       "progress_percent": 85,
       "policy_text": "Direct income support of Rs. 6000 per year to all landholding farmers' families having cultivable land, paid in three equal installments of Rs. 2000 each.",
+      "policy_rules": {
+        "eligibility_criteria": {
+          "land_ownership": "must_have_cultivable_land",
+          "land_size_min": 0,
+          "land_size_max": null,
+          "family_income_max": null,
+          "tribe_status": "any",
+          "age_min": 18,
+          "age_max": null
+        },
+        "benefit_structure": {
+          "amount_per_year": 6000,
+          "payment_frequency": "quarterly",
+          "payment_amount": 2000,
+          "payment_months": [4, 8, 12]
+        },
+        "application_process": {
+          "documents_required": ["land_records", "identity_proof", "bank_details"],
+          "verification_level": "village_revenue_officer",
+          "processing_time_days": 30
+        }
+      },
       "beneficiaries": 125000,
       "budget_allocated": 750000000,
       "budget_utilized": 637500000

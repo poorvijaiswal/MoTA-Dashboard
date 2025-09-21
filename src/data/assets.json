@@ -9,7 +9,20 @@
       "area": "125.5 hectares",
       "status": "Protected",
       "last_surveyed": "2024-01-15",
-      "biodiversity_index": 0.85
+      "biodiversity_index": 0.85,
+      "shape_file": {
+        "boundaries": [
+          [86.7347, 22.2587],
+          [86.7380, 22.2620],
+          [86.7395, 22.2610],
+          [86.7385, 22.2575],
+          [86.7347, 22.2587]
+        ],
+        "elevation": 120,
+        "forest_type": "sal_mixed",
+        "canopy_coverage": 0.85,
+        "water_bodies": 3
+      }
     },
     {
       "id": "A002",

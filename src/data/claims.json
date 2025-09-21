@@ -11,7 +11,20 @@
       "state": "Odisha",
       "coords": [86.7347, 22.2587],
       "submission_date": "2023-08-15",
-      "approval_date": "2024-02-10"
+      "approval_date": "2024-02-10",
+      "shape_file": {
+        "boundaries": [
+          [86.7347, 22.2587],
+          [86.7355, 22.2595],
+          [86.7363, 22.2591],
+          [86.7358, 22.2578],
+          [86.7347, 22.2587]
+        ],
+        "survey_number": "SUR/OD/001/2024",
+        "total_area_sqm": 10117,
+        "land_classification": "forest_land",
+        "soil_type": "red_laterite"
+      }
     },
     {
       "id": "FRA-2024-002",

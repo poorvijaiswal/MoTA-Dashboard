@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Search, Briefcase, TrendingUp, Users, IndianRupee, Edit2, Plus, Filter, FileText } from 'lucide-react';
+import SchemeForm from '@/components/SchemeForm';
 
 // Import data
 import schemesData from '@/data/schemes.json';
@@ -22,6 +23,7 @@ const Schemes = () => {
   const [selectedScheme, setSelectedScheme] = useState<any>(null);
   const [editingScheme, setEditingScheme] = useState<any>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [showSchemeForm, setShowSchemeForm] = useState(false);
 
   // Get unique values for filters
   const ministries = [...new Set(schemesData.schemes.map(scheme => scheme.ministry))];
@@ -81,6 +83,26 @@ const Schemes = () => {
     setIsEditDialogOpen(false);
     setEditingScheme(null);
   };
+
+  const handleSaveScheme = (schemeData: any) => {
+    // In a real app, this would save to backend
+    console.log('Saving scheme:', schemeData);
+    setShowSchemeForm(false);
+  };
+
+  const handleAddNewScheme = () => {
+    setShowSchemeForm(true);
+  };
+
+  // Show scheme form if adding/editing
+  if (showSchemeForm) {
+    return (
+      <SchemeForm 
+        onSave={handleSaveScheme}
+        onCancel={() => setShowSchemeForm(false)}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -170,7 +192,7 @@ const Schemes = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button className="h-20 flex-col">
+                <Button className="h-20 flex-col" onClick={handleAddNewScheme}>
                   <Plus className="w-6 h-6 mb-2" />
                   Add New Scheme
                 </Button>

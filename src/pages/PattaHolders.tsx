@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Search, Users, MapPin, Phone, Briefcase, IndianRupee, Home, Filter } from 'lucide-react';
+import HolderProfile from '@/components/HolderProfile';
 
 // Import data
 import holdersData from '@/data/holders.json';
@@ -56,6 +57,23 @@ const PattaHolders = () => {
       maximumFractionDigits: 0
     }).format(amount);
   };
+
+  // Show full profile if selected
+  if (selectedHolder?.showFullProfile) {
+    const claim = getHolderClaim(selectedHolder.claim_id);
+    const holderSchemes = selectedHolder.schemes_linked.map((schemeName: string) => 
+      getSchemeDetails(schemeName)
+    ).filter(Boolean);
+    
+    return (
+      <HolderProfile 
+        holder={selectedHolder}
+        claim={claim}
+        schemes={holderSchemes}
+        onClose={() => setSelectedHolder(null)}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -383,7 +401,12 @@ const PattaHolders = () => {
                 </Tabs>
 
                 <div className="mt-6 space-y-2">
-                  <Button className="w-full">View Full Profile</Button>
+                  <Button 
+                    className="w-full"
+                    onClick={() => setSelectedHolder({ ...selectedHolder, showFullProfile: true })}
+                  >
+                    View Full Profile
+                  </Button>
                   <Button variant="outline" className="w-full">
                     <MapPin className="w-4 h-4 mr-2" />
                     View on Map
