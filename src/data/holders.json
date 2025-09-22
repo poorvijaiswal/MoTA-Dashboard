@@ -1,11 +1,12 @@
 {
-    "holders": [
+  "holders": [
     {
       "id": "H001",
       "name": "Raman Munda",
       "gender": "Male",
       "tribe": "Munda",
       "state": "Madhya Pradesh",
+      "district": "Ujjain",
       "latitude": 23.5,
       "longitude": 78.5,
       "claim_id": "FRA-2024-001",
@@ -14,7 +15,8 @@
       "contact": "+91-9876543210",
       "family_members": 5,
       "annual_income": 85000,
-      "occupation": "Agriculture & Forest Produce Collection"
+      "occupation": "Agriculture & Forest Produce Collection",
+      "status": "Approved"
     },
     {
       "id": "H002",
@@ -22,6 +24,7 @@
       "gender": "Female",
       "tribe": "Oraon",
       "state": "Tripura",
+      "district": "Ambassa",
       "latitude": 23.94,
       "longitude": 91.97,
       "claim_id": "FRA-2024-002",
@@ -30,7 +33,8 @@
       "contact": "+91-9876543211",
       "family_members": 4,
       "annual_income": 120000,
-      "occupation": "Community Forest Management"
+      "occupation": "Community Forest Management",
+      "status": "Pending"
     },
     {
       "id": "H003",
@@ -38,6 +42,7 @@
       "gender": "Male",
       "tribe": "Ho",
       "state": "Odisha",
+      "district": "Bhubaneswar",
       "latitude": 20.95,
       "longitude": 85.09,
       "claim_id": "FRA-2024-003",
@@ -46,7 +51,8 @@
       "contact": "+91-9876543212",
       "family_members": 6,
       "annual_income": 60000,
-      "occupation": "Daily Labor & Farming"
+      "occupation": "Daily Labor & Farming",
+      "status": "Approved"
     },
     {
       "id": "H004",
@@ -54,6 +60,7 @@
       "gender": "Male",
       "tribe": "Meena",
       "state": "Telangana",
+      "district": "Warangal",
       "latitude": 18.11,
       "longitude": 79.01,
       "claim_id": "FRA-2024-004",
@@ -62,7 +69,8 @@
       "contact": "+91-9876543213",
       "family_members": 7,
       "annual_income": 180000,
-      "occupation": "Agriculture & Animal Husbandry"
+      "occupation": "Agriculture & Animal Husbandry",
+      "status": "Approved"
     },
     {
       "id": "H005",
@@ -70,6 +78,7 @@
       "gender": "Female",
       "tribe": "Bhil",
       "state": "Madhya Pradesh",
+      "district": "Ujjain",
       "latitude": 23.51,
       "longitude": 78.52,
       "claim_id": "FRA-2024-005",
@@ -78,14 +87,16 @@
       "contact": "+91-9876543214",
       "family_members": 3,
       "annual_income": 72000,
-      "occupation": "Traditional Handicrafts & Farming"
+      "occupation": "Traditional Handicrafts & Farming",
+      "status": "Pending"
     },
-      {
+    {
       "id": "H006",
       "name": "Ramesh Gond",
       "gender": "Male",
       "tribe": "Gond",
       "state": "Madhya Pradesh",
+      "district": "Jabalpur",
       "latitude": 23.52,
       "longitude": 78.53,
       "claim_id": "FRA-2024-006",
@@ -94,7 +105,8 @@
       "contact": "+91-9876543215",
       "family_members": 8,
       "annual_income": 220000,
-      "occupation": "Forest Produce Collection & Processing"
+      "occupation": "Forest Produce Collection & Processing",
+      "status": "Approved"
     },
     {
       "id": "H007",
@@ -102,6 +114,7 @@
       "gender": "Female",
       "tribe": "Korku",
       "state": "Madhya Pradesh",
+      "district": "Jabalpur",
       "latitude": 23.54,
       "longitude": 78.54,
       "claim_id": "FRA-2024-007",
@@ -110,7 +123,8 @@
       "contact": "+91-9876543216",
       "family_members": 4,
       "annual_income": 68000,
-      "occupation": "Agriculture & Beekeeping"
+      "occupation": "Agriculture & Beekeeping",
+      "status": "Pending"
     },
     {
       "id": "H008",
@@ -118,6 +132,7 @@
       "gender": "Male",
       "tribe": "Khasi",
       "state": "Odisha",
+      "district": "Bhubaneswar",
       "latitude": 20.97,
       "longitude": 85.11,
       "claim_id": "FRA-2024-008",
@@ -126,7 +141,8 @@
       "contact": "+91-9876543217",
       "family_members": 5,
       "annual_income": 150000,
-      "occupation": "Horticulture & Spice Cultivation"
+      "occupation": "Horticulture & Spice Cultivation",
+      "status": "Approved"
     },
     {
       "id": "H009",
@@ -134,6 +150,7 @@
       "gender": "Female",
       "tribe": "Garo",
       "state": "Tripura",
+      "district": "Agartala",
       "latitude": 23.96,
       "longitude": 91.99,
       "claim_id": "FRA-2024-009",
@@ -142,7 +159,8 @@
       "contact": "+91-9876543218",
       "family_members": 3,
       "annual_income": 55000,
-      "occupation": "Weaving & Small-scale Farming"
+      "occupation": "Weaving & Small-scale Farming",
+      "status": "Approved"
     },
     {
       "id": "H010",
@@ -150,6 +168,7 @@
       "gender": "Male",
       "tribe": "Santhal",
       "state": "Odisha",
+      "district": "Sambalpur",
       "latitude": 20.99,
       "longitude": 85.13,
       "claim_id": "FRA-2024-010",
@@ -158,7 +177,8 @@
       "contact": "+91-9876543219",
       "family_members": 6,
       "annual_income": 195000,
-      "occupation": "Community Forest Management & NTFP"
+      "occupation": "Community Forest Management & NTFP",
+      "status": "Pending"
     }
   ]
 }

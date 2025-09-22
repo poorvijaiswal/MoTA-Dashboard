@@ -1,4 +1,4 @@
-import holdersData from "../data/holders.json";
+import holdersData from '@/data/holders.json';
 const holders = holdersData.holders;
 
 const getRecommendation = (schemes: string[]) => {

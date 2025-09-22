@@ -1,5 +1,5 @@
 import { useState } from "react";
-import holdersData from "../data/holders.json";
+import holdersData from '@/data/holders.json';
 
 const PattaHoldersRegistry = () => {
   const [search, setSearch] = useState("");
