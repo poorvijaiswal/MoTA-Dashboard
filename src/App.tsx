@@ -21,13 +21,20 @@ import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDash
 import RevenueDashboard from "./pages/Dashboard/Revenue Dept/RevenueDashboard";
 import DistrictDeptDashboard from "./pages/Dashboard/District Department/DistrictDeptDashboard";
 import PlanningDashboard from "./pages/Dashboard/Planning Authority/PlanningDashboard";
+import PattaHoldersRegistry from "./components/PattaHoldersRegistry";
+import GISMapping from "./components/GISMapping";
+import SchemeLayering from "./components/SchemeLayering";
+import AnalyticsCharts from "./components/AnalyticsCharts";
+import FeedbackGrievance from "./components/FeedbackGrievance";
+import UserManagement from "./components/UserManagement";
+
 
 const queryClient = new QueryClient();
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = localStorage.getItem('auth') === 'authenticated';
-  return isAuthenticated ? <>{children}</> : <Navigate to="/" replace />;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 const App = () => (
@@ -41,7 +48,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          {/* 🔹 MoTA (with Layout) */}
+          {/* MoTA Dashboard (with Layout) */}
           <Route
             path="/mota/*"
             element={
@@ -61,20 +68,21 @@ const App = () => (
             <Route path="reports" element={<Reports />} />
           </Route>
 
-          {/* 🔹 Other Dashboards (no Layout) */}
+          {/* District Officials Dashboard & Features */}
+          <Route path="/dashboard/district" element={<ProtectedRoute><DistrictDeptDashboard /></ProtectedRoute>} />
+          <Route path="/holders" element={<ProtectedRoute><PattaHoldersRegistry /></ProtectedRoute>} />
+          <Route path="/gis" element={<ProtectedRoute><GISMapping /></ProtectedRoute>} />
+          <Route path="/schemes" element={<ProtectedRoute><SchemeLayering /></ProtectedRoute>} />
+          <Route path="/analytics" element={<ProtectedRoute><AnalyticsCharts /></ProtectedRoute>} />
+          <Route path="/feedback" element={<ProtectedRoute><FeedbackGrievance /></ProtectedRoute>} />
+          <Route path="/users" element={<ProtectedRoute><UserManagement /></ProtectedRoute>} />
+
+          {/* Other Dashboards */}
           <Route
             path="/dashboard/state"
             element={
               <ProtectedRoute>
                 <StateDeptDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/district"
-            element={
-              <ProtectedRoute>
-                <DistrictDeptDashboard />
               </ProtectedRoute>
             }
           />
