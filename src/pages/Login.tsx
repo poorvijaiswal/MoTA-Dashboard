@@ -21,7 +21,7 @@ const Login = () => {
     // Static authentication
     if (credentials.username === 'admin' && credentials.password === 'admin') {
       localStorage.setItem('auth', 'authenticated');
-      navigate('/dashboard');
+      navigate('/mota/dashboard');
     } else {
       setError('Invalid credentials. Please try again.');
     }

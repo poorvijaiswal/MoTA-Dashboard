@@ -21,18 +21,20 @@ const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const basePath = "/mota";
 
   const navigationItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: Map, label: 'FRA Atlas', path: '/fra-atlas' },
-    { icon: FileText, label: 'FRA Claims', path: '/fra-claims' },
-    { icon: Users, label: 'Patta Holders', path: '/patta-holders' },
-    { icon: Building2, label: 'Assets', path: '/assets' },
-    { icon: Briefcase, label: 'Schemes', path: '/schemes' },
-    { icon: MessageSquare, label: 'Complaints', path: '/complaints' },
-    { icon: Settings, label: 'DSS Engine', path: '/dss' },
-    { icon: BarChart3, label: 'Reports', path: '/reports' },
-  ];
+  { icon: LayoutDashboard, label: 'Dashboard', path: `${basePath}/dashboard` },
+  { icon: Map, label: 'FRA Atlas', path: `${basePath}/fra-atlas` },
+  { icon: FileText, label: 'FRA Claims', path: `${basePath}/fra-claims` },
+  { icon: Users, label: 'Patta Holders', path: `${basePath}/patta-holders` },
+  { icon: Building2, label: 'Assets', path: `${basePath}/assets` },
+  { icon: Briefcase, label: 'Schemes', path: `${basePath}/schemes` },
+  { icon: MessageSquare, label: 'Complaints', path: `${basePath}/complaints` },
+  { icon: Settings, label: 'DSS Engine', path: `${basePath}/dss` },
+  { icon: BarChart3, label: 'Reports', path: `${basePath}/reports` },
+];
+
 
   const handleLogout = () => {
     localStorage.removeItem('auth');

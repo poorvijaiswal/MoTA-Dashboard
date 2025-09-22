@@ -15,6 +15,12 @@ import Complaints from "./pages/Complaints";
 import DSSEngine from "./pages/DSSEngine";
 import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
+import NGODashboard from "./pages/Dashboard/NGO/NGODashboard";
+import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDashboard";
+import RevenueDashboard from "./pages/Dashboard/Revenue Dept/RevenueDashboard";
+import DistrictDeptDashboard from "./pages/Dashboard/District Department/DistrictDeptDashboard";
+import PlanningDashboard from "./pages/Dashboard/Planning Authority/PlanningDashboard";
 
 const queryClient = new QueryClient();
 
@@ -31,10 +37,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          {/* Home & Login */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route 
-            path="/*" 
+
+          {/* 🔹 MoTA (with Layout) */}
+          <Route
+            path="/mota/*"
             element={
               <ProtectedRoute>
                 <Layout />
@@ -51,6 +60,50 @@ const App = () => (
             <Route path="dss" element={<DSSEngine />} />
             <Route path="reports" element={<Reports />} />
           </Route>
+
+          {/* 🔹 Other Dashboards (no Layout) */}
+          <Route
+            path="/dashboard/state"
+            element={
+              <ProtectedRoute>
+                <StateDeptDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/district"
+            element={
+              <ProtectedRoute>
+                <DistrictDeptDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/revenue"
+            element={
+              <ProtectedRoute>
+                <RevenueDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/planning"
+            element={
+              <ProtectedRoute>
+                <PlanningDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/ngo"
+            element={
+              <ProtectedRoute>
+                <NGODashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
