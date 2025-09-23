@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Sidebar"; // Update path if necessary
+
 import holdersData from '@/data/holders.json';
 const holders = holdersData.holders;
 
@@ -12,7 +12,7 @@ const getRecommendation = (schemes: string[]) => {
 
 const SchemeLayering = () => (
   <div className="flex min-h-screen bg-gray-50">
-    <Sidebar />
+
     <main className="flex-1 p-6 overflow-x-hidden">
       <h2 className="font-bold text-2xl mb-4 text-green-800">Scheme Layering & DSS Recommendations</h2>
       <div className="mb-4 text-gray-700">

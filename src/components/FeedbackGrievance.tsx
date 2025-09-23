@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Sidebar from "@/components/Sidebar"; // Adjust path if necessary
+
 
 const feedbacks = [
   { id: 1, holder: "Raman Munda", feedback: "Boundary issue", status: "Open" },
@@ -12,7 +12,7 @@ const FeedbackGrievance = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+ 
       <main className="flex-1 p-6 overflow-x-hidden">
         <h2 className="font-bold text-2xl mb-6 text-green-800">Feedback & Grievance</h2>
 

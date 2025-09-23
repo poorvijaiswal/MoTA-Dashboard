@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Sidebar from "@/components/Sidebar"; // Update path if necessary
+
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import holdersData from '@/data/holders.json';
 import districtsGeoJSON from '@/data/districts.json'; // GeoJSON file of district boundaries
@@ -36,7 +36,6 @@ const GISMapping = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
       <main className="flex-1 p-6 overflow-x-hidden">
         <h2 className="font-bold text-2xl mb-4 text-green-800">GIS Mapping</h2>
 

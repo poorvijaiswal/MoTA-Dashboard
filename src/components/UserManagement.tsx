@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Sidebar"; // Update path if needed
+
 import { FaUserShield, FaUsers, FaLock, FaClipboardList } from "react-icons/fa";
 
 const roles = [
@@ -15,7 +15,7 @@ const auditLogs = [
 
 const UserManagement = () => (
   <div className="flex min-h-screen bg-gray-50">
-    <Sidebar />
+  
     <main className="flex-1 p-6 space-y-8 overflow-x-hidden">
       <h2 className="font-bold text-3xl text-green-800 mb-6">User Management & Security</h2>
       <p className="text-gray-700 mb-6">
