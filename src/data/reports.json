@@ -8,12 +8,9 @@
   ],
   "state_coverage": [
     { "state": "Odisha", "total_claims": 850, "granted": 420, "pending": 280, "rejected": 150, "coverage_percent": 78 },
-    { "state": "Jharkhand", "total_claims": 1200, "granted": 580, "pending": 420, "rejected": 200, "coverage_percent": 65 },
     { "state": "Madhya Pradesh", "total_claims": 950, "granted": 480, "pending": 320, "rejected": 150, "coverage_percent": 72 },
-    { "state": "Chhattisgarh", "total_claims": 720, "granted": 380, "pending": 220, "rejected": 120, "coverage_percent": 80 },
-    { "state": "Rajasthan", "total_claims": 650, "granted": 320, "pending": 250, "rejected": 80, "coverage_percent": 69 },
-    { "state": "Meghalaya", "total_claims": 420, "granted": 250, "pending": 120, "rejected": 50, "coverage_percent": 85 },
-    { "state": "Assam", "total_claims": 380, "granted": 180, "pending": 150, "rejected": 50, "coverage_percent": 62 }
+    { "state": "Telangana", "total_claims": 720, "granted": 380, "pending": 220, "rejected": 120, "coverage_percent": 82 },
+    { "state": "Tripura", "total_claims": 650, "granted": 320, "pending": 250, "rejected": 80, "coverage_percent": 69 }
   ],
   "asset_distribution": [
     { "type": "forest", "count": 245, "total_area": "12450 hectares" },

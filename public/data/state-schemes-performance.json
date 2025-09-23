@@ -1,0 +1,262 @@
+{
+  "performance": {
+    "overview": {
+      "totalSchemes": 10,
+      "activeSchemes": 7,
+      "pendingSchemes": 1,
+      "completedSchemes": 2,
+      "totalBeneficiaries": 9508,
+      "targetBeneficiaries": 12800,
+      "overallUtilization": 74.3,
+      "totalBudget": 192450000,
+      "budgetUtilized": 143128500
+    },
+    "departmentWise": [
+      {
+        "department": "Forest Department",
+        "schemes": 2,
+        "budget": 41700000,
+        "beneficiaries": 1570,
+        "utilization": 63
+      },
+      {
+        "department": "Tribal Affairs Department",
+        "schemes": 1,
+        "budget": 18500000,
+        "beneficiaries": 890,
+        "utilization": 59
+      },
+      {
+        "department": "Education Department",
+        "schemes": 1,
+        "budget": 15750000,
+        "beneficiaries": 2100,
+        "utilization": 84
+      },
+      {
+        "department": "Health Department",
+        "schemes": 1,
+        "budget": 22000000,
+        "beneficiaries": 1800,
+        "utilization": 82
+      },
+      {
+        "department": "Rural Development Department",
+        "schemes": 1,
+        "budget": 35000000,
+        "beneficiaries": 450,
+        "utilization": 90
+      },
+      {
+        "department": "Agriculture Department",
+        "schemes": 1,
+        "budget": 12000000,
+        "beneficiaries": 0,
+        "utilization": 0
+      },
+      {
+        "department": "Skill Development Department",
+        "schemes": 1,
+        "budget": 14200000,
+        "beneficiaries": 680,
+        "utilization": 68
+      },
+      {
+        "department": "Women & Child Development",
+        "schemes": 1,
+        "budget": 19800000,
+        "beneficiaries": 1420,
+        "utilization": 79
+      },
+      {
+        "department": "Industries Department",
+        "schemes": 1,
+        "budget": 28500000,
+        "beneficiaries": 0,
+        "utilization": 0
+      }
+    ],
+    "districtWise": [
+      {
+        "district": "Balaghat",
+        "schemes": 1,
+        "budget": 25000000,
+        "beneficiaries": 1250,
+        "utilization": 62
+      },
+      {
+        "district": "Jhabua",
+        "schemes": 1,
+        "budget": 18500000,
+        "beneficiaries": 890,
+        "utilization": 59
+      },
+      {
+        "district": "Dindori",
+        "schemes": 1,
+        "budget": 12000000,
+        "beneficiaries": 0,
+        "utilization": 0
+      },
+      {
+        "district": "Mandla",
+        "schemes": 1,
+        "budget": 15750000,
+        "beneficiaries": 2100,
+        "utilization": 84
+      },
+      {
+        "district": "Alirajpur",
+        "schemes": 1,
+        "budget": 22000000,
+        "beneficiaries": 1800,
+        "utilization": 82
+      },
+      {
+        "district": "Barwani",
+        "schemes": 1,
+        "budget": 35000000,
+        "beneficiaries": 450,
+        "utilization": 90
+      },
+      {
+        "district": "Chhindwara",
+        "schemes": 1,
+        "budget": 14200000,
+        "beneficiaries": 680,
+        "utilization": 68
+      },
+      {
+        "district": "Betul",
+        "schemes": 1,
+        "budget": 19800000,
+        "beneficiaries": 1420,
+        "utilization": 79
+      },
+      {
+        "district": "Seoni",
+        "schemes": 1,
+        "budget": 28500000,
+        "beneficiaries": 0,
+        "utilization": 0
+      },
+      {
+        "district": "Shahdol",
+        "schemes": 1,
+        "budget": 16700000,
+        "beneficiaries": 320,
+        "utilization": 64
+      }
+    ],
+    "categoryWise": [
+      {
+        "category": "Forest Rights",
+        "schemes": 1,
+        "budget": 25000000,
+        "beneficiaries": 1250,
+        "utilization": 62
+      },
+      {
+        "category": "Tribal Welfare",
+        "schemes": 1,
+        "budget": 18500000,
+        "beneficiaries": 890,
+        "utilization": 59
+      },
+      {
+        "category": "Agricultural Support",
+        "schemes": 1,
+        "budget": 12000000,
+        "beneficiaries": 0,
+        "utilization": 0
+      },
+      {
+        "category": "Education",
+        "schemes": 1,
+        "budget": 15750000,
+        "beneficiaries": 2100,
+        "utilization": 84
+      },
+      {
+        "category": "Healthcare",
+        "schemes": 1,
+        "budget": 22000000,
+        "beneficiaries": 1800,
+        "utilization": 82
+      },
+      {
+        "category": "Housing",
+        "schemes": 1,
+        "budget": 35000000,
+        "beneficiaries": 450,
+        "utilization": 90
+      },
+      {
+        "category": "Skills Development",
+        "schemes": 1,
+        "budget": 14200000,
+        "beneficiaries": 680,
+        "utilization": 68
+      },
+      {
+        "category": "Women Empowerment",
+        "schemes": 1,
+        "budget": 19800000,
+        "beneficiaries": 1420,
+        "utilization": 79
+      },
+      {
+        "category": "Financial Inclusion",
+        "schemes": 1,
+        "budget": 28500000,
+        "beneficiaries": 0,
+        "utilization": 0
+      },
+      {
+        "category": "Traditional Knowledge",
+        "schemes": 1,
+        "budget": 16700000,
+        "beneficiaries": 320,
+        "utilization": 64
+      }
+    ],
+    "timeline": [
+      {
+        "month": "Jan 2024",
+        "schemesLaunched": 3,
+        "beneficiariesAdded": 4050,
+        "budgetAllocated": 69000000
+      },
+      {
+        "month": "Feb 2024",
+        "schemesLaunched": 1,
+        "beneficiariesAdded": 890,
+        "budgetAllocated": 18500000
+      },
+      {
+        "month": "Mar 2024",
+        "schemesLaunched": 1,
+        "beneficiariesAdded": 680,
+        "budgetAllocated": 14200000
+      },
+      {
+        "month": "Apr 2024",
+        "schemesLaunched": 2,
+        "beneficiariesAdded": 2420,
+        "budgetAllocated": 31450000
+      },
+      {
+        "month": "May 2024",
+        "schemesLaunched": 0,
+        "beneficiariesAdded": 468,
+        "budgetAllocated": 0
+      },
+      {
+        "month": "Jun 2024",
+        "schemesLaunched": 1,
+        "beneficiariesAdded": 0,
+        "budgetAllocated": 12000000
+      }
+    ]
+  }
+}

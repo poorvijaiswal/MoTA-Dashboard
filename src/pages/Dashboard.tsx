@@ -14,10 +14,10 @@ const Dashboard = () => {
   const grantedClaims = claimsData.claims.filter(c => c.status === 'granted').length;
   const pendingClaims = claimsData.claims.filter(c => c.status === 'pending').length;
   const rejectedClaims = claimsData.claims.filter(c => c.status === 'rejected').length;
-  
+
   const totalSchemes = schemesData.schemes.length;
   const implementedSchemes = schemesData.schemes.filter(s => s.status === 'implemented').length;
-  
+
   const totalComplaints = complaintsData.complaints.length;
   const pendingComplaints = complaintsData.complaints.filter(c => c.status === 'pending').length;
 
@@ -111,8 +111,10 @@ const Dashboard = () => {
         })}
       </div>
 
+      {/* // ...existing code... */}
+
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Claims Status Pie Chart */}
         <Card className="shadow-card">
           <CardHeader>
@@ -155,17 +157,17 @@ const Dashboard = () => {
                 <XAxis dataKey="year" />
                 <YAxis />
                 <Tooltip />
-                <Line 
-                  type="monotone" 
-                  dataKey="claims_filed" 
-                  stroke="hsl(var(--primary))" 
+                <Line
+                  type="monotone"
+                  dataKey="claims_filed"
+                  stroke="hsl(var(--primary))"
                   strokeWidth={2}
                   name="Filed"
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="claims_granted" 
-                  stroke="hsl(var(--success))" 
+                <Line
+                  type="monotone"
+                  dataKey="claims_granted"
+                  stroke="hsl(var(--success))"
                   strokeWidth={2}
                   name="Granted"
                 />
@@ -175,25 +177,26 @@ const Dashboard = () => {
         </Card>
 
         {/* Scheme Coverage by State */}
-        <Card className="shadow-card lg:col-span-2">
+        <Card className="shadow-card">
           <CardHeader>
             <CardTitle>Scheme Coverage by State</CardTitle>
-            <CardDescription>Percentage coverage of schemes across different states</CardDescription>
+            <CardDescription>Coverage across different states</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={schemeCoverageData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                  dataKey="state" 
-                  angle={-45}
+                <XAxis
+                  dataKey="state"
+                  angle={-35}
                   textAnchor="end"
-                  height={100}
+                  height={80}
+                  fontSize={10}
                 />
                 <YAxis />
                 <Tooltip />
-                <Bar 
-                  dataKey="coverage" 
+                <Bar
+                  dataKey="coverage"
                   fill="hsl(var(--primary))"
                   radius={[4, 4, 0, 0]}
                 />
@@ -203,32 +206,8 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>Frequently accessed features</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { label: 'View FRA Atlas', path: '/fra-atlas', color: 'primary' },
-              { label: 'Process Claims', path: '/fra-claims', color: 'success' },
-              { label: 'Manage Schemes', path: '/schemes', color: 'warning' },
-              { label: 'Generate Reports', path: '/reports', color: 'pending' }
-            ].map((action, index) => (
-              <Card 
-                key={index} 
-                className={`cursor-pointer hover:shadow-lg transition-shadow bg-gradient-to-br from-${action.color}/10 to-${action.color}/5 border-${action.color}/20`}
-              >
-                <CardContent className="p-4 text-center">
-                  <p className="text-sm font-medium">{action.label}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+{/* // ...existing code... */}
+
     </div>
   );
 };

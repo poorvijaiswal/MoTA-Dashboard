@@ -1,0 +1,89 @@
+[
+  {
+    "id": "DSS001",
+    "name": "Forest Area Priority Analysis",
+    "description": "Analyze districts by forest cover and tribal population density",
+    "criteria": [
+      {
+        "parameter": "Forest Area Coverage",
+        "weight": 0.3,
+        "values": {
+          "High": ">60%",
+          "Medium": "30-60%", 
+          "Low": "<30%"
+        }
+      },
+      {
+        "parameter": "Tribal Population Density",
+        "weight": 0.25,
+        "values": {
+          "High": ">40%",
+          "Medium": "20-40%",
+          "Low": "<20%"
+        }
+      },
+      {
+        "parameter": "Pending FRA Claims",
+        "weight": 0.25,
+        "values": {
+          "High": ">500",
+          "Medium": "100-500",
+          "Low": "<100"
+        }
+      },
+      {
+        "parameter": "Scheme Utilization Rate",
+        "weight": 0.2,
+        "values": {
+          "Low": "<50%",
+          "Medium": "50-80%",
+          "High": ">80%"
+        }
+      }
+    ],
+    "recommendations": {
+      "highPriority": "Immediate intervention required - allocate additional resources and officers",
+      "mediumPriority": "Moderate attention needed - monitor progress quarterly",
+      "lowPriority": "Maintain current support level - annual review sufficient"
+    }
+  },
+  {
+    "id": "DSS002", 
+    "name": "Complaint Response Efficiency",
+    "description": "Evaluate district performance in complaint resolution",
+    "criteria": [
+      {
+        "parameter": "Average Resolution Time",
+        "weight": 0.4,
+        "values": {
+          "Good": "<30 days",
+          "Average": "30-60 days",
+          "Poor": ">60 days"
+        }
+      },
+      {
+        "parameter": "Complaint Volume",
+        "weight": 0.3,
+        "values": {
+          "High": ">50/month",
+          "Medium": "20-50/month",
+          "Low": "<20/month"
+        }
+      },
+      {
+        "parameter": "Resolution Rate",
+        "weight": 0.3,
+        "values": {
+          "Excellent": ">90%",
+          "Good": "70-90%", 
+          "Poor": "<70%"
+        }
+      }
+    ],
+    "recommendations": {
+      "highPriority": "Strengthen complaint redressal mechanism",
+      "mediumPriority": "Enhance officer training and monitoring",
+      "lowPriority": "Continue current practices with minor improvements"
+    }
+  }
+]

@@ -1,9 +1,18 @@
-const StateDeptDashboard = () => {
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+
+const DashboardLayout = () => {
   return (
-    <div>
-      <h1 className="text-2xl font-bold">State Tribal & Forest Dept Dashboard</h1>
-      <p className="mt-2">Analytics and tools for state-level management.</p>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <main className="w-full">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };
-export default StateDeptDashboard;
+
+export default DashboardLayout;

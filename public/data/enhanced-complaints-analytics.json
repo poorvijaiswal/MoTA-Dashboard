@@ -1,0 +1,151 @@
+{
+  "complaintAnalytics": [
+    {
+      "category": "Land Demarcation Issues",
+      "total": 450,
+      "resolved": 312,
+      "inProgress": 98,
+      "open": 40,
+      "avgResolutionDays": 28,
+      "priority": "High",
+      "affectedFamilies": 1850,
+      "districts": ["Jhabua", "Alirajpur", "Balaghat", "Dindori"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 45, "resolved": 32},
+        {"month": "Feb", "filed": 38, "resolved": 28},
+        {"month": "Mar", "filed": 52, "resolved": 35},
+        {"month": "Apr", "filed": 48, "resolved": 33},
+        {"month": "May", "filed": 41, "resolved": 29},
+        {"month": "Jun", "filed": 36, "resolved": 25}
+      ]
+    },
+    {
+      "category": "Benefit Denial",
+      "total": 385,
+      "resolved": 298,
+      "inProgress": 65,
+      "open": 22,
+      "avgResolutionDays": 22,
+      "priority": "High",
+      "affectedFamilies": 1240,
+      "districts": ["Mandla", "Barwani", "Betul", "Chhindwara"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 38, "resolved": 29},
+        {"month": "Feb", "filed": 32, "resolved": 25},
+        {"month": "Mar", "filed": 45, "resolved": 34},
+        {"month": "Apr", "filed": 42, "resolved": 31},
+        {"month": "May", "filed": 35, "resolved": 27},
+        {"month": "Jun", "filed": 29, "resolved": 22}
+      ]
+    },
+    {
+      "category": "Documentation Problems",
+      "total": 325,
+      "resolved": 278,
+      "inProgress": 35,
+      "open": 12,
+      "avgResolutionDays": 18,
+      "priority": "Medium",
+      "affectedFamilies": 895,
+      "districts": ["Balaghat", "Jhabua", "Mandla", "Alirajpur"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 32, "resolved": 28},
+        {"month": "Feb", "filed": 28, "resolved": 24},
+        {"month": "Mar", "filed": 38, "resolved": 32},
+        {"month": "Apr", "filed": 35, "resolved": 30},
+        {"month": "May", "filed": 31, "resolved": 26},
+        {"month": "Jun", "filed": 26, "resolved": 22}
+      ]
+    },
+    {
+      "category": "Forest Department Delays",
+      "total": 280,
+      "resolved": 195,
+      "inProgress": 58,
+      "open": 27,
+      "avgResolutionDays": 35,
+      "priority": "Medium",
+      "affectedFamilies": 1150,
+      "districts": ["Dindori", "Betul", "Chhindwara", "Barwani"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 28, "resolved": 18},
+        {"month": "Feb", "filed": 24, "resolved": 16},
+        {"month": "Mar", "filed": 32, "resolved": 21},
+        {"month": "Apr", "filed": 30, "resolved": 19},
+        {"month": "May", "filed": 26, "resolved": 17},
+        {"month": "Jun", "filed": 22, "resolved": 14}
+      ]
+    },
+    {
+      "category": "Scheme Implementation Issues",
+      "total": 245,
+      "resolved": 185,
+      "inProgress": 45,
+      "open": 15,
+      "avgResolutionDays": 26,
+      "priority": "Medium",
+      "affectedFamilies": 785,
+      "districts": ["Alirajpur", "Jhabua", "Mandla", "Balaghat"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 24, "resolved": 18},
+        {"month": "Feb", "filed": 21, "resolved": 16},
+        {"month": "Mar", "filed": 28, "resolved": 21},
+        {"month": "Apr", "filed": 26, "resolved": 19},
+        {"month": "May", "filed": 23, "resolved": 17},
+        {"month": "Jun", "filed": 19, "resolved": 14}
+      ]
+    },
+    {
+      "category": "Corruption Allegations",
+      "total": 125,
+      "resolved": 85,
+      "inProgress": 28,
+      "open": 12,
+      "avgResolutionDays": 45,
+      "priority": "High",
+      "affectedFamilies": 420,
+      "districts": ["Jhabua", "Alirajpur", "Balaghat", "Dindori"],
+      "monthlyTrend": [
+        {"month": "Jan", "filed": 12, "resolved": 8},
+        {"month": "Feb", "filed": 10, "resolved": 7},
+        {"month": "Mar", "filed": 15, "resolved": 10},
+        {"month": "Apr", "filed": 14, "resolved": 9},
+        {"month": "May", "filed": 11, "resolved": 7},
+        {"month": "Jun", "filed": 9, "resolved": 6}
+      ]
+    }
+  ],
+  "resolutionMetrics": {
+    "averageResolutionTime": 27.5,
+    "resolutionRate": 75.8,
+    "escalationRate": 12.3,
+    "satisfactionScore": 78.2,
+    "repeatedComplaints": 8.5
+  },
+  "officerPerformance": [
+    {
+      "officer": "Shri Rajesh Kumar",
+      "district": "Balaghat",
+      "casesHandled": 145,
+      "casesResolved": 128,
+      "avgResolutionDays": 22,
+      "satisfactionScore": 4.2
+    },
+    {
+      "officer": "Smt. Priya Sharma",
+      "district": "Jhabua",
+      "casesHandled": 189,
+      "casesResolved": 165,
+      "avgResolutionDays": 25,
+      "satisfactionScore": 4.1
+    },
+    {
+      "officer": "Shri Anil Patel",
+      "district": "Dindori",
+      "casesHandled": 98,
+      "casesResolved": 89,
+      "avgResolutionDays": 19,
+      "satisfactionScore": 4.4
+    }
+  ]
+}

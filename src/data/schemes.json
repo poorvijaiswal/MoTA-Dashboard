@@ -40,23 +40,70 @@
       "status": "implemented",
       "progress_percent": 92,
       "policy_text": "Guaranteed 100 days of wage employment in a financial year to every household whose adult members volunteer to do unskilled manual work.",
+      "policy_rules": {
+        "eligibility_criteria": {
+          "residency": "rural_household",
+          "tribe_status": "any",
+          "age_min": 18,
+          "age_max": null
+        },
+        "benefit_structure": {
+          "work_days_guaranteed": 100,
+          "wage_rate": "as_per_state_minimum_wage",
+          "payment_frequency": "fortnightly"
+        },
+        "application_process": {
+          "documents_required": ["job_card", "identity_proof"],
+          "verification_level": "panchayat_officer",
+          "processing_time_days": 15
+        }
+      },
       "beneficiaries": 89000,
       "budget_allocated": 445000000,
       "budget_utilized": 409400000
     },
     {
       "id": "S003",
+      "name": "Jal Jeevan Mission (Tribal Villages Component)",
+      "ministry": "Ministry of Jal Shakti",
+      "status": "implemented",
+      "progress_percent": 77,
+      "policy_text": "Har Ghar Jal scheme ensuring functional household tap connections with special focus on tribal and remote habitations.",
+      "policy_rules": {
+        "eligibility_criteria": {
+          "residency": "rural_household",
+          "tribe_status": "priority",
+          "age_min": null,
+          "age_max": null
+        },
+        "benefit_structure": {
+          "service": "piped_drinking_water",
+          "coverage": "100% households",
+          "maintenance": "village_panchayat"
+        },
+        "application_process": {
+          "documents_required": ["residency_proof", "ration_card"],
+          "verification_level": "panchayat_water_committee",
+          "processing_time_days": 60
+        }
+      },
+      "beneficiaries": 75600,
+      "budget_allocated": 1134000000,
+      "budget_utilized": 873180000
+    },
+    {
+      "id": "S004",
       "name": "Van Dhan Vikas Yojana",
       "ministry": "Ministry of Tribal Affairs",
       "status": "sanctioned",
       "progress_percent": 68,
-      "policy_text": "An initiative for value addition, branding & marketing of tribal products including Minor Forest Produce (MFP) through establishment of Van Dhan Kendras.",
+      "policy_text": "Value addition, branding & marketing of Minor Forest Produce (MFP) through establishment of Van Dhan Kendras.",
       "beneficiaries": 15600,
       "budget_allocated": 156000000,
       "budget_utilized": 106080000
     },
     {
-      "id": "S004",
+      "id": "S005",
       "name": "PMAY-G (Tribal Component)",
       "ministry": "Ministry of Rural Development",
       "status": "implemented",
@@ -67,45 +114,111 @@
       "budget_utilized": 702000000
     },
     {
-      "id": "S005",
-      "name": "Pradhan Mantri Ujjwala Yojana",
+      "id": "S006",
+      "name": "Pradhan Mantri Ujjwala Yojana (ST Focus)",
       "ministry": "Ministry of Petroleum & Natural Gas",
       "status": "implemented",
       "progress_percent": 89,
-      "policy_text": "Provide LPG connections to women from BPL households, with special provisions for tribal communities to reduce their dependence on fossil fuels.",
+      "policy_text": "Provide LPG connections to women from BPL households, with special provisions for tribal communities to reduce firewood dependence.",
       "beneficiaries": 67800,
       "budget_allocated": 203400000,
       "budget_utilized": 181026000
     },
     {
-      "id": "S006",
+      "id": "S007",
       "name": "Tribal Sub Plan",
       "ministry": "Ministry of Tribal Affairs",
       "status": "available",
       "progress_percent": 45,
-      "policy_text": "A comprehensive plan for socio-economic development of tribal communities including education, health, livelihood and infrastructure development in scheduled areas.",
+      "policy_text": "Comprehensive development plan for tribal communities including education, health, livelihood and infrastructure in scheduled areas.",
       "beneficiaries": 234000,
       "budget_allocated": 1170000000,
       "budget_utilized": 526500000
     },
     {
-      "id": "S007",
+      "id": "S008",
       "name": "PMFBY (Tribal Areas)",
       "ministry": "Ministry of Agriculture & Farmers Welfare",
       "status": "sanctioned",
       "progress_percent": 62,
-      "policy_text": "Crop insurance scheme providing financial support to farmers suffering crop loss/damage arising out of unforeseen events, with subsidized premium for tribal farmers.",
+      "policy_text": "Crop insurance scheme with subsidized premium for tribal farmers.",
       "beneficiaries": 28700,
       "budget_allocated": 287000000,
       "budget_utilized": 177940000
     },
     {
-      "id": "S008",
+      "id": "S009",
+      "name": "Eklavya Model Residential Schools",
+      "ministry": "Ministry of Tribal Affairs",
+      "status": "implemented",
+      "progress_percent": 87,
+      "policy_text": "Residential schools for quality education to tribal children in remote areas.",
+      "beneficiaries": 80500,
+      "budget_allocated": 1610000000,
+      "budget_utilized": 1400700000
+    },
+    {
+      "id": "S010",
+      "name": "Odisha Millet Mission",
+      "ministry": "Government of Odisha – ST & SC Development Department",
+      "status": "implemented",
+      "progress_percent": 79,
+      "policy_text": "Promote climate-resilient millet crops and revive tribal food systems in Odisha.",
+      "beneficiaries": 47500,
+      "budget_allocated": 712500000,
+      "budget_utilized": 562875000
+    },
+    {
+      "id": "S011",
+      "name": "OPELIP (Odisha PVTG Empowerment Programme)",
+      "ministry": "Government of Odisha – ST & SC Development Department",
+      "status": "implemented",
+      "progress_percent": 84,
+      "policy_text": "Targeted livelihood improvement program for Particularly Vulnerable Tribal Groups of Odisha.",
+      "beneficiaries": 27000,
+      "budget_allocated": 540000000,
+      "budget_utilized": 453600000
+    },
+    {
+      "id": "S012",
+      "name": "Tripura Tribal Areas Autonomous District Council Development Fund",
+      "ministry": "Government of Tripura – Tribal Welfare Department",
+      "status": "sanctioned",
+      "progress_percent": 67,
+      "policy_text": "Socio-economic development projects in TTAADC areas including roads, schools, and water.",
+      "beneficiaries": 35600,
+      "budget_allocated": 712000000,
+      "budget_utilized": 477040000
+    },
+    {
+      "id": "S013",
+      "name": "Girijan Bandhu Scheme",
+      "ministry": "Government of Telangana – Tribal Welfare Department",
+      "status": "implemented",
+      "progress_percent": 76,
+      "policy_text": "Financial assistance of Rs. 10 lakh per tribal family for land purchase and livelihood support.",
+      "beneficiaries": 9600,
+      "budget_allocated": 960000000,
+      "budget_utilized": 729600000
+    },
+    {
+      "id": "S014",
+      "name": "Kalyana Lakshmi (ST Component)",
+      "ministry": "Government of Telangana – Tribal Welfare Department",
+      "status": "implemented",
+      "progress_percent": 88,
+      "policy_text": "Financial assistance for marriage of tribal women from BPL families in Telangana.",
+      "beneficiaries": 18400,
+      "budget_allocated": 552000000,
+      "budget_utilized": 485760000
+    },
+    {
+      "id": "S015",
       "name": "Skill Development for Tribal Youth",
       "ministry": "Ministry of Skill Development & Entrepreneurship",
       "status": "implemented",
       "progress_percent": 71,
-      "policy_text": "Skill training programs specifically designed for tribal youth focusing on traditional crafts, modern technology and entrepreneurship development.",
+      "policy_text": "Skill training programs for tribal youth focusing on traditional crafts, modern technology and entrepreneurship.",
       "beneficiaries": 12400,
       "budget_allocated": 124000000,
       "budget_utilized": 88040000

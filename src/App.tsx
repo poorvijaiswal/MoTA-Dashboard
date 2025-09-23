@@ -21,6 +21,16 @@ import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDash
 import RevenueDashboard from "./pages/Dashboard/Revenue Dept/RevenueDashboard";
 import DistrictDeptDashboard from "./pages/Dashboard/District Department/DistrictDeptDashboard";
 import PlanningDashboard from "./pages/Dashboard/Planning Authority/PlanningDashboard";
+import StateDashboard from "./pages/Dashboard/State Department/pages/StateDashboard";
+import StateSchemes from "./pages/Dashboard/State Department/pages/StateSchemes";
+import Beneficiaries from "./pages/Dashboard/State Department/pages/Beneficiaries";
+import StateComplaints from "./pages/Dashboard/State Department/pages/StateComplaints";
+import DSS from "./pages/Dashboard/State Department/pages/DSS";
+import StateAnalytics from "./pages/Dashboard/State Department/pages/StateAnalytics";
+import StateFRAAtlasPage from "./pages/Dashboard/State Department/pages/StateFRAAtlasPage";
+import ClaimsManagement from "./pages/Dashboard/State Department/pages/ClaimsManagement";
+import FieldVerification from "./pages/Dashboard/State Department/pages/FieldVerification";
+import TaskManagement from "./pages/Dashboard/State Department/pages/TaskManagement";
 
 const queryClient = new QueryClient();
 
@@ -63,13 +73,26 @@ const App = () => (
 
           {/* 🔹 Other Dashboards (no Layout) */}
           <Route
-            path="/dashboard/state"
+            path="/dashboard/state/*"
             element={
               <ProtectedRoute>
                 <StateDeptDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<StateDashboard />} />
+            <Route path="claims" element={<ClaimsManagement />} />
+            <Route path="verification" element={<FieldVerification />} />
+            <Route path="tasks" element={<TaskManagement />} />
+            <Route path="schemes" element={<StateSchemes />} />
+            <Route path="beneficiaries" element={<Beneficiaries />} />
+            <Route path="complaints" element={<StateComplaints />} />
+            <Route path="dss" element={<DSSEngine />} />
+            <Route path="reports" element={<StateAnalytics />} />
+            <Route path="analytics" element={<StateAnalytics />} />
+            <Route path="fra-atlas" element={<StateFRAAtlasPage />} />
+            {/* <Route path="settings" element={<div className="p-6 gov-text">Settings - Coming Soon</div>} /> */}
+          </Route>
           <Route
             path="/dashboard/district"
             element={

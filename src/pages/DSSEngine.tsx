@@ -1,644 +1,679 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { 
-  Brain, 
-  TrendingUp, 
-  AlertTriangle, 
-  Target, 
-  Users, 
-  MapPin, 
-  Lightbulb,
-  RefreshCw,
-  Download,
-  Eye,
-  ArrowRight,
-  Zap
-} from 'lucide-react';
+// src/pages/DSSEngineModular.tsx
+import { useState } from "react";
+import claimsRaw from "../data/claims.json";
+import schemesRaw from "../data/schemes.json";
+import { useRecommendations } from "../hooks/useRecommendations";
+import { Claim, Scheme, RecommendationRow } from "../lib/schemeEngine";
 
-// Import data
-import reportsData from '@/data/reports.json';
-import schemesData from '@/data/schemes.json';
-import holdersData from '@/data/holders.json';
-import claimsData from '@/data/claims.json';
+/**
+ * DSS Engine — Modular Real-time Recommendations
+ *
+ * Features:
+ * - Real-time recommendations (no "Run DSS" button needed)
+ * - Modular scheme engine for better maintainability
+ * - Enhanced filtering and sorting
+ * - Professional UI with detailed insights
+ * - Export capabilities
+ */
 
-const DSSEngine = () => {
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [lastAnalysis, setLastAnalysis] = useState('2 hours ago');
+/* ----------------------- Load data ----------------------- */
+const rawClaims: any = (claimsRaw as any).claims || claimsRaw;
+const rawSchemes: any = (schemesRaw as any).schemes || schemesRaw;
+const claims: Claim[] = Array.isArray(rawClaims) ? rawClaims : Object.values(rawClaims);
+const schemes: Scheme[] = Array.isArray(rawSchemes) ? rawSchemes : Object.values(rawSchemes);
 
-  // DSS Analytics Data
-  const schemeGapAnalysis = [
-    { state: 'Odisha', covered: 78, uncovered: 22, total_holders: 1250 },
-    { state: 'Jharkhand', covered: 65, uncovered: 35, total_holders: 1890 },
-    { state: 'Madhya Pradesh', covered: 72, uncovered: 28, total_holders: 1450 },
-    { state: 'Rajasthan', covered: 69, uncovered: 31, total_holders: 980 },
-    { state: 'Meghalaya', covered: 85, uncovered: 15, total_holders: 670 }
-  ];
+/* ----------------------- Component ----------------------- */
 
-  const priorityInterventions = [
-    {
-      id: 1,
-      category: 'Scheme Linkage',
-      title: 'Link FRA holders to PM-KISAN',
-      description: '1,250 eligible FRA holders in Odisha not enrolled in PM-KISAN scheme',
-      priority: 'High',
-      impact: 'High',
-      beneficiaries: 1250,
-      potential_benefit: 7500000,
-      timeline: '30 days',
-      actions: ['Verify land records', 'Process applications', 'Coordinate with Agriculture Dept']
-    },
-    {
-      id: 2,
-      category: 'Infrastructure',
-      title: 'Improve Road Connectivity',
-      description: '45 tribal villages lack proper road access affecting scheme delivery',
-      priority: 'Medium',
-      impact: 'High',
-      beneficiaries: 8900,
-      potential_benefit: 0,
-      timeline: '6 months',
-      actions: ['Survey existing roads', 'Prioritize under PMGSY', 'Allocate MGNREGA funds']
-    },
-    {
-      id: 3,
-      category: 'Water Security',
-      title: 'Water Conservation Projects',
-      description: 'Low water table in 23 districts affecting tribal agriculture',
-      priority: 'High',
-      impact: 'Very High',
-      beneficiaries: 15600,
-      potential_benefit: 0,
-      timeline: '12 months',
-      actions: ['Implement Jal Jeevan Mission', 'Watershed management', 'Community tanks']
-    },
-    {
-      id: 4,
-      category: 'Skill Development',
-      title: 'Tribal Youth Training Programs',
-      description: 'Low skill development coverage in remote tribal areas',
-      priority: 'Medium',
-      impact: 'Medium',
-      beneficiaries: 3400,
-      potential_benefit: 0,
-      timeline: '90 days',
-      actions: ['Mobile training units', 'Traditional craft training', 'Digital literacy']
-    }
-  ];
+export default function DSSEngine(): JSX.Element {
+  // Use the modular recommendations hook
+  const {
+    recommendations,
+    allRecommendations,
+    stats,
+    locationOptions,
+    filters,
+    sort,
+    pagination,
+    updateFilter,
+    updateSort,
+    updatePagination,
+    resetFilters,
+    updateLocationFilters,
+  } = useRecommendations(claims, schemes);
 
-  const performanceMetrics = [
-    { metric: 'Scheme Coverage', current: 74, target: 90, status: 'needs_improvement' },
-    { metric: 'Claims Processing Speed', current: 85, target: 95, status: 'good' },
-    { metric: 'Complaint Resolution', current: 92, target: 95, status: 'excellent' },
-    { metric: 'Digital Infrastructure', current: 45, target: 80, status: 'critical' }
-  ];
+  // UI state
+  const [selectedRow, setSelectedRow] = useState<RecommendationRow | null>(null);
 
-  const riskFactors = [
-    {
-      factor: 'Monsoon Dependency',
-      level: 'High',
-      description: '68% of tribal agriculture depends on monsoon, climate change risk',
-      mitigation: 'Irrigation infrastructure, drought-resistant crops'
-    },
-    {
-      factor: 'Digital Divide',
-      level: 'Medium',
-      description: 'Limited internet connectivity in 35% of tribal areas',
-      mitigation: 'Mobile towers, digital literacy programs'
-    },
-    {
-      factor: 'Market Access',
-      level: 'High',
-      description: 'Poor road connectivity affects market reach for tribal produce',
-      mitigation: 'Rural road development, collection centers'
-    }
-  ];
+  /* ----------------------- Export functions ----------------------- */
+  function exportCSV() {
+    const headers = [
+      "Recommendation ID", "Holder ID", "Holder Name", "Location", 
+      "Priority", "Match Score", "Suggested Schemes", "Top Scheme", "Eligibility Reason"
+    ];
+    const rows = [headers.join(",")].concat(
+      allRecommendations.map((r) =>
+        [
+          r.recommendationId,
+          r.holderId ?? "",
+          `"${(r.holderName ?? "").replace(/"/g, '""')}"`,
+          `"${r.target.replace(/"/g, '""')}"`,
+          r.priority,
+          Math.round(r.score * 100),
+          `"${r.suggestedSchemes.map((s) => s.name).join("; ").replace(/"/g, '""')}"`,
+          `"${r.suggestedSchemes.length > 0 ? r.suggestedSchemes[0].name : 'None'}"`,
+          `"${r.suggestedSchemes.length > 0 ? r.suggestedSchemes[0].reason || '' : ''}"`,
+        ].join(",")
+      )
+    );
+    const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `dss_recommendations_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'High': return 'destructive';
-      case 'Medium': return 'warning';
-      case 'Low': return 'secondary';
-      default: return 'secondary';
-    }
-  };
+  function exportGeoJSON() {
+    const features = allRecommendations
+      .filter(r => r.raw?.coords)
+      .map(r => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: Array.isArray(r.raw.coords) 
+            ? [r.raw.coords[0], r.raw.coords[1]]
+            : [r.raw.coords.lon, r.raw.coords.lat]
+        },
+        properties: {
+          recommendationId: r.recommendationId,
+          holderName: r.holderName,
+          location: r.target,
+          priority: r.priority,
+          matchScore: Math.round(r.score * 100),
+          suggestedSchemes: r.suggestedSchemes.map(s => s.name).join(", "),
+          topScheme: r.suggestedSchemes.length > 0 ? r.suggestedSchemes[0].name : null,
+          eligibilityReason: r.suggestedSchemes.length > 0 ? r.suggestedSchemes[0].reason : null
+        }
+      }));
 
-  const getImpactColor = (impact: string) => {
-    switch (impact) {
-      case 'Very High': return 'text-red-600';
-      case 'High': return 'text-orange-600';
-      case 'Medium': return 'text-yellow-600';
-      case 'Low': return 'text-green-600';
-      default: return 'text-gray-600';
-    }
-  };
+    const geojson = {
+      type: "FeatureCollection",
+      features: features
+    };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'excellent': return 'success';
-      case 'good': return 'success';
-      case 'needs_improvement': return 'warning';
-      case 'critical': return 'destructive';
-      default: return 'secondary';
-    }
-  };
+    const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: "application/geo+json;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `dss_recommendations_${new Date().toISOString().slice(0, 10)}.geojson`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-  const runAnalysis = () => {
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      setLastAnalysis('Just now');
-    }, 3000);
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      notation: 'compact',
-      maximumFractionDigits: 1
-    }).format(amount);
-  };
+  /* ----------------------- UI helpers ----------------------- */
+  function priorityBadge(p: "High" | "Medium" | "Low") {
+    if (p === "High") return <span className="px-2 py-1 rounded bg-red-100 text-red-800 text-xs font-semibold">High</span>;
+    if (p === "Medium") return <span className="px-2 py-1 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">Medium</span>;
+    return <span className="px-2 py-1 rounded bg-green-50 text-green-800 text-xs font-semibold">Low</span>;
+  }
 
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-primary" />
-            Decision Support System
-          </h1>
-          <p className="text-muted-foreground">
-            AI-powered recommendations for tribal development and policy optimization
-          </p>
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <div className="text-right">
-            <p className="text-sm text-muted-foreground">Last Analysis</p>
-            <p className="font-medium">{lastAnalysis}</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-6 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Decision Support System</h1>
+            <p className="text-sm text-gray-600 mt-1">Real-time scheme recommendations for patta holders</p>
           </div>
-          <Button 
-            onClick={runAnalysis} 
-            disabled={isAnalyzing}
-            className="flex items-center"
-          >
-            {isAnalyzing ? (
-              <>
-                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                Analyzing...
-              </>
-            ) : (
-              <>
-                <Zap className="w-4 h-4 mr-2" />
-                Run Analysis
-              </>
-            )}
-          </Button>
+          <div className="flex items-center space-x-3">
+            <button 
+              onClick={exportCSV}
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            >
+              <span>Export CSV</span>
+            </button>
+            <button 
+              onClick={exportGeoJSON}
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            >
+              <span>Export GeoJSON</span>
+            </button>
+            <button 
+              onClick={resetFilters}
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            >
+              <span>Reset Filters</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Key Insights Alert */}
-      <Alert className="border-primary/50 bg-primary/5">
-        <Lightbulb className="h-4 w-4 text-primary" />
-        <AlertTitle className="text-primary">AI Insights Available</AlertTitle>
-        <AlertDescription>
-          System has identified <strong>4 high-priority interventions</strong> that could benefit{' '}
-          <strong>29,150 tribal families</strong> with potential savings of ₹7.5 Crore annually.
-        </AlertDescription>
-      </Alert>
+      <div className="flex">
+        {/* Segment Builder Sidebar */}
+        <div className="w-80 bg-white border-r border-gray-200 h-auto overflow-y-auto">
+          <div className="px-6 py-2">
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="p-2 bg-blue-100 rounded">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+              </div>
+              <h2 className="text-lg font-semibold text-gray-900">Segment Builder</h2>
+            </div>
 
-      <Tabs defaultValue="recommendations" className="w-full">
-        <TabsList>
-          <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="risks">Risk Assessment</TabsTrigger>
-        </TabsList>
+            <div className="space-y-2">
+              {/* State Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.selectedState} 
+                  onChange={(e) => updateLocationFilters(e.target.value)}
+                >
+                  <option value="">All States</option>
+                  {locationOptions.states.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
 
-        <TabsContent value="recommendations" className="space-y-6">
-          {/* Priority Interventions */}
-          <Card className="shadow-card">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Target className="w-5 h-5 mr-2" />
-                Priority Interventions
-              </CardTitle>
-              <CardDescription>
-                AI-generated recommendations based on data analysis
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {priorityInterventions.map((intervention) => (
-                  <Card key={intervention.id} className="border-l-4 border-l-primary">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
+              {/* District Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.selectedDistrict} 
+                  onChange={(e) => updateLocationFilters(filters.selectedState, e.target.value)}
+                  disabled={!filters.selectedState}
+                >
+                  <option value="">All Districts</option>
+                  {locationOptions.districts.map((d) => <option key={d} value={d}>{d}</option>)}
+                </select>
+              </div>
+
+              {/* Village Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Village</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.selectedVillage} 
+                  onChange={(e) => updateLocationFilters(filters.selectedState, filters.selectedDistrict, e.target.value)}
+                  disabled={!filters.selectedDistrict}
+                >
+                  <option value="">All Villages</option>
+                  {locationOptions.villages.map((v) => <option key={v} value={v}>{v}</option>)}
+                </select>
+              </div>
+
+              {/* Tribe Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Tribe</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.selectedTribe} 
+                  onChange={(e) => updateFilter('selectedTribe', e.target.value)}
+                >
+                  <option value="">All Tribes</option>
+                  {locationOptions.tribes.map((t) => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
+
+              {/* Patta Type */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Patta Type</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.pattalType} 
+                  onChange={(e) => updateFilter('pattalType', e.target.value)}
+                >
+                  <option value="">All Types</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Community">Community</option>
+                  <option value="CFR">Community Forest Rights</option>
+                </select>
+              </div>
+
+              {/* Water Index */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Water Index</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.waterIndex} 
+                  onChange={(e) => updateFilter('waterIndex', e.target.value)}
+                >
+                  <option value="">All Levels</option>
+                  <option value="high">High (&gt;70)</option>
+                  <option value="medium">Medium (40-70)</option>
+                  <option value="low">Low (&lt;40)</option>
+                </select>
+              </div>
+
+              {/* Income Level */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Income Level</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.incomeLevel} 
+                  onChange={(e) => updateFilter('incomeLevel', e.target.value)}
+                >
+                  <option value="">All Levels</option>
+                  <option value="below_poverty">Below Poverty Line</option>
+                  <option value="low">Low Income</option>
+                  <option value="medium">Medium Income</option>
+                </select>
+              </div>
+
+              {/* Scheme Category */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Scheme Category</label>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  value={filters.selectedSchemeId} 
+                  onChange={(e) => updateFilter('selectedSchemeId', e.target.value)}
+                >
+                  <option value="">All Schemes (Multi-scheme analysis)</option>
+                  {schemes.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                </select>
+              </div>
+
+              {/* Show Only Eligible */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="showOnlyEligible"
+                  checked={filters.showOnlyEligible}
+                  onChange={(e) => updateFilter('showOnlyEligible', e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="showOnlyEligible" className="ml-2 text-sm text-gray-700">
+                  Show only eligible recommendations
+                </label>
+              </div>
+            </div>
+
+            {/* Real-time Stats */}
+            <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+              <h3 className="text-sm font-medium text-gray-900 mb-3">Live Statistics</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Total Patta Holders:</span>
+                  <span className="text-sm font-semibold">{stats.total.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Eligible for Schemes:</span>
+                  <span className="text-sm font-semibold">{stats.eligible.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">High Priority:</span>
+                  <span className="text-sm font-semibold text-red-600">{stats.highPriority}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Medium Priority:</span>
+                  <span className="text-sm font-semibold text-yellow-600">{stats.mediumPriority}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Low Priority:</span>
+                  <span className="text-sm font-semibold text-green-600">{stats.lowPriority}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Top Schemes */}
+            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+              <h3 className="text-sm font-medium text-blue-900 mb-3">Most Recommended Schemes</h3>
+              <div className="space-y-2">
+                {Object.entries(stats.schemeDistribution)
+                  .sort(([,a], [,b]) => b - a)
+                  .slice(0, 3)
+                  .map(([schemeName, count]) => (
+                    <div key={schemeName} className="flex justify-between">
+                      <span className="text-xs text-blue-700 truncate">{schemeName}</span>
+                      <span className="text-xs font-semibold text-blue-900">{count}</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="flex-1 overflow-hidden">
+          {/* Recommendations Header */}
+          <div className="bg-white border-b border-gray-200 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-green-100 rounded">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">Live Recommendations ({stats.total})</h2>
+                  <p className="text-sm text-gray-600">Real-time scheme recommendations based on eligibility analysis</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <input
+                  type="search"
+                  placeholder="Search by name or village..."
+                  value={filters.searchText}
+                  onChange={(e) => updateFilter('searchText', e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64"
+                />
+                <select 
+                  value={sort.sortBy} 
+                  onChange={(e) => updateSort(e.target.value as any)} 
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="score">Sort by Score</option>
+                  <option value="priority">Sort by Priority</option>
+                  <option value="holderName">Sort by Name</option>
+                </select>
+                <button
+                  onClick={() => updateSort(sort.sortBy, !sort.sortDesc)}
+                  className="p-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                  title={sort.sortDesc ? "Sort Ascending" : "Sort Descending"}
+                >
+                  <svg className={`w-4 h-4 transform ${sort.sortDesc ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Recommendations List */}
+          <div className="p-6 h-full overflow-y-auto">
+            <div className="space-y-4">
+              {recommendations.map((r) => (
+                <div key={r.recommendationId} className="bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedRow(r)}>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                        </div>
                         <div className="flex-1">
-                          <div className="flex items-center space-x-3 mb-2">
-                            <h3 className="text-lg font-semibold">{intervention.title}</h3>
-                            <Badge variant={getPriorityColor(intervention.priority) as any}>
-                              {intervention.priority} Priority
-                            </Badge>
-                            <span className={`text-sm font-medium ${getImpactColor(intervention.impact)}`}>
-                              {intervention.impact} Impact
-                            </span>
+                          <div className="flex items-center space-x-3">
+                            <h3 className="text-lg font-medium text-gray-900">{r.holderName}</h3>
+                            {priorityBadge(r.priority)}
+                            <span className="text-sm text-gray-500">→ {Math.round(r.score * 100)}% match</span>
                           </div>
-                          <p className="text-muted-foreground mb-3">{intervention.description}</p>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                            <div>
-                              <p className="text-sm text-muted-foreground">Beneficiaries</p>
-                              <p className="text-lg font-semibold flex items-center">
-                                <Users className="w-4 h-4 mr-1 text-primary" />
-                                {intervention.beneficiaries.toLocaleString()}
-                              </p>
-                            </div>
-                            {intervention.potential_benefit > 0 && (
-                              <div>
-                                <p className="text-sm text-muted-foreground">Potential Benefit</p>
-                                <p className="text-lg font-semibold text-success">
-                                  {formatCurrency(intervention.potential_benefit)}
-                                </p>
-                              </div>
-                            )}
-                            <div>
-                              <p className="text-sm text-muted-foreground">Timeline</p>
-                              <p className="text-lg font-semibold">{intervention.timeline}</p>
-                            </div>
-                            <div>
-                              <p className="text-sm text-muted-foreground">Category</p>
-                              <Badge variant="outline">{intervention.category}</Badge>
-                            </div>
-                          </div>
-                          
-                          <div className="mb-4">
-                            <p className="text-sm font-medium mb-2">Recommended Actions:</p>
-                            <ul className="space-y-1">
-                              {intervention.actions.map((action, index) => (
-                                <li key={index} className="flex items-center text-sm">
-                                  <ArrowRight className="w-3 h-3 mr-2 text-primary" />
-                                  {action}
-                                </li>
-                              ))}
-                            </ul>
+                          <div className="mt-1 flex items-center space-x-4 text-sm text-gray-500">
+                            <span>{r.target}</span>
+                            <span>Updated now</span>
                           </div>
                         </div>
                       </div>
-                      
-                      <div className="flex space-x-2">
-                        <Button size="sm" className="flex-1">
-                          <Target className="w-4 h-4 mr-2" />
-                          Implement
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Eye className="w-4 h-4 mr-2" />
-                          Details
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Download className="w-4 h-4 mr-2" />
-                          Export
-                        </Button>
+                      <div className="text-right">
+                        <div className="flex items-center space-x-2">
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setSelectedRow(r); }}
+                            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                          >
+                            View Profile
+                          </button>
+                          <button className="px-3 py-1 text-sm bg-black text-white rounded hover:bg-gray-800">
+                            Generate Letter
+                          </button>
+                        </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                    </div>
 
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="shadow-card hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <Users className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <h3 className="font-semibold mb-2">Scheme Optimization</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Identify gaps in scheme coverage and suggest improvements
-                </p>
-                <Button variant="outline" size="sm">
-                  Generate Report
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <MapPin className="w-12 h-12 mx-auto mb-4 text-success" />
-                <h3 className="font-semibold mb-2">Resource Allocation</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Optimize resource distribution across regions
-                </p>
-                <Button variant="outline" size="sm">
-                  View Analysis
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <TrendingUp className="w-12 h-12 mx-auto mb-4 text-warning" />
-                <h3 className="font-semibold mb-2">Impact Prediction</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Predict outcomes of policy interventions
-                </p>
-                <Button variant="outline" size="sm">
-                  Run Simulation
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="analytics" className="space-y-6">
-          {/* Scheme Gap Analysis */}
-          <Card className="shadow-card">
-            <CardHeader>
-              <CardTitle>Scheme Coverage Gap Analysis</CardTitle>
-              <CardDescription>State-wise coverage vs uncovered beneficiaries</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={schemeGapAnalysis}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="state" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="covered" stackId="a" fill="hsl(var(--success))" name="Covered %" />
-                  <Bar dataKey="uncovered" stackId="a" fill="hsl(var(--destructive))" name="Gap %" />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Beneficiary Distribution */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Beneficiary Distribution</CardTitle>
-                <CardDescription>Distribution across different categories</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={[
-                        { name: 'Individual Rights', value: 45, color: '#16a34a' },
-                        { name: 'Community Rights', value: 30, color: '#2563eb' },
-                        { name: 'Community Resources', value: 25, color: '#ca8a04' }
-                      ]}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, value }) => `${name}: ${value}%`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {[
-                        { name: 'Individual Rights', value: 45, color: '#16a34a' },
-                        { name: 'Community Rights', value: 30, color: '#2563eb' },
-                        { name: 'Community Resources', value: 25, color: '#ca8a04' }
-                      ].map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                    {/* Scheme Recommendations */}
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {r.suggestedSchemes.slice(0, 3).map((scheme) => (
+                        <div key={scheme.id} className="p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="font-medium text-sm text-gray-900">{scheme.name}</div>
+                              <div className="text-xs text-gray-600 mt-1">{Math.round((scheme.score || 0) * 100)}% match</div>
+                            </div>
+                          </div>
+                        </div>
                       ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            {/* Resource Utilization */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Resource Utilization Efficiency</CardTitle>
-                <CardDescription>Budget vs actual utilization</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>MGNREGA</span>
-                      <span className="font-medium">92%</span>
+                      
+                      {r.suggestedSchemes.length === 0 && (
+                        <div className="col-span-3 p-3 bg-gray-50 rounded-lg text-center text-sm text-gray-500">
+                          No scheme recommendations available for current filters
+                        </div>
+                      )}
                     </div>
-                    <Progress value={92} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>PM-KISAN</span>
-                      <span className="font-medium">85%</span>
-                    </div>
-                    <Progress value={85} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Van Dhan Vikas</span>
-                      <span className="font-medium">68%</span>
-                    </div>
-                    <Progress value={68} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>PMAY-G</span>
-                      <span className="font-medium">78%</span>
-                    </div>
-                    <Progress value={78} className="h-2" />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
+              ))}
 
-        <TabsContent value="performance" className="space-y-6">
-          {/* Performance Metrics */}
-          <Card className="shadow-card">
-            <CardHeader>
-              <CardTitle>System Performance Metrics</CardTitle>
-              <CardDescription>Key performance indicators vs targets</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {performanceMetrics.map((metric, index) => (
-                  <Card key={index} className="border">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">{metric.metric}</h3>
-                        <Badge variant={getStatusColor(metric.status) as any}>
-                          {metric.status.replace('_', ' ')}
-                        </Badge>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Current</span>
-                          <span className="font-medium">{metric.current}%</span>
-                        </div>
-                        <Progress value={metric.current} className="h-2" />
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>Target: {metric.target}%</span>
-                          <span>
-                            Gap: {metric.target - metric.current > 0 ? '+' : ''}{metric.target - metric.current}%
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+              {recommendations.length === 0 && (
+                <div className="text-center py-12">
+                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No recommendations found</h3>
+                  <p className="text-gray-500 max-w-md mx-auto">
+                    Try adjusting your filters or enable "Show only eligible recommendations" to see results.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Pagination */}
+            {stats.totalPages > 1 && (
+              <div className="mt-6 flex items-center justify-between bg-white border border-gray-200 rounded-lg px-6 py-4">
+                <div className="text-sm text-gray-700">
+                  Showing {(pagination.page - 1) * pagination.pageSize + 1} to {Math.min(pagination.page * pagination.pageSize, stats.total)} of {stats.total} results
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button 
+                    onClick={() => updatePagination({ page: 1 })} 
+                    disabled={pagination.page === 1} 
+                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    First
+                  </button>
+                  <button 
+                    onClick={() => updatePagination({ page: Math.max(1, pagination.page - 1) })} 
+                    disabled={pagination.page === 1} 
+                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    Previous
+                  </button>
+                  
+                  {/* Page Numbers */}
+                  {[...Array(Math.min(5, stats.totalPages))].map((_, i) => {
+                    const pageNum = Math.max(1, pagination.page - 2) + i;
+                    if (pageNum > stats.totalPages) return null;
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => updatePagination({ page: pageNum })}
+                        className={`px-3 py-2 text-sm border rounded-md ${
+                          pagination.page === pageNum 
+                            ? 'bg-blue-600 text-white border-blue-600' 
+                            : 'border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                  
+                  <button 
+                    onClick={() => updatePagination({ page: Math.min(stats.totalPages, pagination.page + 1) })} 
+                    disabled={pagination.page === stats.totalPages} 
+                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    Next
+                  </button>
+                  <button 
+                    onClick={() => updatePagination({ page: stats.totalPages })} 
+                    disabled={pagination.page === stats.totalPages} 
+                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    Last
+                  </button>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Trend Analysis */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <Card className="shadow-card">
-              <CardContent className="p-6 text-center">
-                <TrendingUp className="w-8 h-8 mx-auto mb-2 text-success" />
-                <p className="text-2xl font-bold text-success">+15%</p>
-                <p className="text-sm text-muted-foreground">Claims Processing Speed</p>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-card">
-              <CardContent className="p-6 text-center">
-                <Users className="w-8 h-8 mx-auto mb-2 text-primary" />
-                <p className="text-2xl font-bold">+2,450</p>
-                <p className="text-sm text-muted-foreground">New Beneficiaries This Month</p>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-card">
-              <CardContent className="p-6 text-center">
-                <Target className="w-8 h-8 mx-auto mb-2 text-warning" />
-                <p className="text-2xl font-bold">87%</p>
-                <p className="text-sm text-muted-foreground">Overall System Efficiency</p>
-              </CardContent>
-            </Card>
+            )}
           </div>
-        </TabsContent>
+        </div>
+      </div>
 
-        <TabsContent value="risks" className="space-y-6">
-          {/* Risk Factors */}
-          <Card className="shadow-card">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <AlertTriangle className="w-5 h-5 mr-2 text-destructive" />
-                Risk Assessment
-              </CardTitle>
-              <CardDescription>
-                Identified risks and mitigation strategies for tribal development programs
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {riskFactors.map((risk, index) => (
-                  <Card key={index} className="border-l-4 border-l-destructive">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="font-semibold mb-1">{risk.factor}</h3>
-                          <p className="text-sm text-muted-foreground">{risk.description}</p>
-                        </div>
-                        <Badge variant={
-                          risk.level === 'High' ? 'destructive' : 
-                          risk.level === 'Medium' ? 'default' : 'secondary'
-                        }>
-                          {risk.level} Risk
-                        </Badge>
+      {/* Enhanced Detail Modal */}
+      {selectedRow && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-6xl max-h-[90vh] rounded-lg shadow-xl overflow-hidden">
+            {/* Modal Header */}
+            <div className="bg-gray-50 border-b border-gray-200 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">{selectedRow.holderName}</h2>
+                    <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <span>{selectedRow.target}</span>
+                      {priorityBadge(selectedRow.priority)}
+                      <span>Match Score: {Math.round(selectedRow.score * 100)}%</span>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setSelectedRow(null)}
+                  className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Patta Holder Information */}
+                <div className="lg:col-span-1">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Patta Holder Information</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Holder ID</label>
+                        <div className="text-sm text-gray-900">{selectedRow.holderId || 'N/A'}</div>
                       </div>
                       <div>
-                        <p className="text-sm font-medium mb-1">Mitigation Strategy:</p>
-                        <p className="text-sm text-foreground">{risk.mitigation}</p>
+                        <label className="text-sm font-medium text-gray-500">Location</label>
+                        <div className="text-sm text-gray-900">{selectedRow.target}</div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Land Area</label>
+                        <div className="text-sm text-gray-900">{selectedRow.raw?.area || 'N/A'}</div>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Tribe</label>
+                        <div className="text-sm text-gray-900">{selectedRow.raw?.tribe || 'N/A'}</div>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">State</label>
+                        <div className="text-sm text-gray-900">{selectedRow.raw?.state || 'N/A'}</div>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Type</label>
+                        <div className="text-sm text-gray-900">{selectedRow.raw?.type || 'Individual'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Scheme Recommendations */}
+                <div className="lg:col-span-2">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                      Recommended Schemes ({selectedRow.suggestedSchemes.length})
+                    </h3>
+                    {selectedRow.suggestedSchemes.length ? (
+                      <div className="space-y-4">
+                        {selectedRow.suggestedSchemes.map((scheme, index) => (
+                          <div key={scheme.id} className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-3">
+                                  <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium ${
+                                    index === 0 ? 'bg-green-100 text-green-800' :
+                                    index === 1 ? 'bg-blue-100 text-blue-800' :
+                                    'bg-gray-100 text-gray-800'
+                                  }`}>
+                                    {index + 1}
+                                  </span>
+                                  <h4 className="text-base font-medium text-gray-900">{scheme.name}</h4>
+                                  <span className="text-sm text-gray-500">ID: {scheme.id}</span>
+                                </div>
+                                <div className="mt-2 text-sm text-gray-600">
+                                  <strong>Eligibility Reason:</strong> {scheme.reason}
+                                </div>
+                                <div className="mt-2 flex items-center space-x-4">
+                                  <div className="text-sm text-gray-500">
+                                    Match Score: <span className="font-medium text-gray-900">{Math.round((scheme.score || 0) * 100)}%</span>
+                                  </div>
+                                  <div className="text-sm text-gray-500">
+                                    Ministry: <span className="font-medium text-gray-900">
+                                      {scheme.ministry || 'N/A'}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex space-x-2">
+                                <button className="px-3 py-1 text-xs bg-blue-100 text-blue-800 rounded hover:bg-blue-200">
+                                  View Details
+                                </button>
+                                <button className="px-3 py-1 text-xs bg-green-100 text-green-800 rounded hover:bg-green-200">
+                                  Apply Now
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8">
+                        <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <p className="text-sm text-gray-500">No scheme recommendations available</p>
+                        <p className="text-xs text-gray-400 mt-1">Try adjusting the filters to see recommendations</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          {/* Risk Matrix */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Risk Impact Matrix</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
-                    <span className="font-medium">Climate Dependency</span>
-                    <div className="text-right">
-                      <div className="text-sm text-destructive font-medium">High Impact</div>
-                      <div className="text-xs text-muted-foreground">High Probability</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
-                    <span className="font-medium">Digital Infrastructure</span>
-                    <div className="text-right">
-                      <div className="text-sm text-warning font-medium">Medium Impact</div>
-                      <div className="text-xs text-muted-foreground">Medium Probability</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg border-l-4 border-orange-500">
-                    <span className="font-medium">Market Access</span>
-                    <div className="text-right">
-                      <div className="text-sm text-orange-600 font-medium">High Impact</div>
-                      <div className="text-xs text-muted-foreground">Medium Probability</div>
-                    </div>
-                  </div>
+            {/* Modal Footer */}
+            <div className="bg-gray-50 border-t border-gray-200 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Last updated: now • Generated by Modular DSS Engine
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Mitigation Progress</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Irrigation Infrastructure</span>
-                      <span className="font-medium">35%</span>
-                    </div>
-                    <Progress value={35} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Digital Connectivity</span>
-                      <span className="font-medium">52%</span>
-                    </div>
-                    <Progress value={52} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Road Development</span>
-                      <span className="font-medium">68%</span>
-                    </div>
-                    <Progress value={68} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Market Centers</span>
-                      <span className="font-medium">41%</span>
-                    </div>
-                    <Progress value={41} className="h-2" />
-                  </div>
+                <div className="flex space-x-3">
+                  <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Export Report
+                  </button>
+                  <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                    Generate Recommendation Letter
+                  </button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
+        </div>
+      )}
     </div>
   );
-};
-
-export default DSSEngine;
+}
