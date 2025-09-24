@@ -1,0 +1,105 @@
+{
+    "planningData": {
+        "totalClaims": 12450,
+        "claimsApproved": 7890,
+        "claimsPending": 2300,
+        "impactedLives": 45200,
+        "districtPerformance": [
+            { "name": "Gadchiroli, MP", "claimsApproved": 2500, "totalClaims": 3000 },
+            { "name": "Koraput, Odisha", "claimsApproved": 1800, "totalClaims": 2200 },
+            { "name": "Dhalai, Tripura", "claimsApproved": 1500, "totalClaims": 1900 }
+        ]
+    },
+    "revenueData": {
+        "totalRevenue": 25000000,
+        "assignedClaims": [
+            { "id": "C-101", "name": "Ram Kumar", "village": "Lalpur", "status": "Pending Verification" },
+            { "id": "C-102", "name": "Sita Devi", "village": "Aamgaon", "status": "In Progress" },
+            { "id": "C-103", "name": "Mohan Singh", "village": "Bhopal", "status": "Pending Approval" }
+        ],
+        "claimsByType": [
+            { "name": "Land Claims", "value": 450, "color": "#14b8a6" },
+            { "name": "Forest Claims", "value": 300, "color": "#fcd34d" },
+            { "name": "Property Claims", "value": 150, "color": "#f87171" }
+        ],
+        "claimStatusBreakdown": [
+            { "name": "Pending", "value": 300, "color": "#F59E0B" },
+            { "name": "In Progress", "value": 150, "color": "#3B82F6" },
+            { "name": "Approved", "value": 500, "color": "#10B981" },
+            { "name": "Rejected", "value": 50, "color": "#EF4444" }
+        ],
+        "pendingByVillage": [
+            { "name": "Lalpur", "pendingClaims": 85 },
+            { "name": "Aamgaon", "pendingClaims": 60 },
+            { "name": "Sunderpur", "pendingClaims": 45 }
+        ],
+        "bottlenecks": [
+            { "name": "Legal Verification", "delay": 35 },
+            { "name": "Field Survey", "delay": 20 }
+        ]
+    },
+    "statewiseClaims": [
+        {
+            "stateName": "Madhya Pradesh",
+            "districts": [
+                {
+                    "districtName": "Bhopal",
+                    "blocks": [
+                        { "blockName": "Huzur", "claims": { "total": 120, "approved": 80, "pending": 30, "rejected": 10 } },
+                        { "blockName": "Phanda", "claims": { "total": 90, "approved": 65, "pending": 20, "rejected": 5 } }
+                    ]
+                },
+                {
+                    "districtName": "Indore",
+                    "blocks": [
+                        { "blockName": "Depalpur", "claims": { "total": 150, "approved": 100, "pending": 40, "rejected": 10 } },
+                        { "blockName": "Mhow", "claims": { "total": 110, "approved": 75, "pending": 25, "rejected": 10 } }
+                    ]
+                }
+            ]
+        },
+        {
+            "stateName": "Tripura",
+            "districts": [
+                {
+                    "districtName": "Dhalai",
+                    "blocks": [
+                        { "blockName": "Ambassa", "claims": { "total": 70, "approved": 50, "pending": 15, "rejected": 5 } },
+                        { "blockName": "Gandacherra", "claims": { "total": 85, "approved": 60, "pending": 20, "rejected": 5 } }
+                    ]
+                },
+                {
+                    "districtName": "Sipahijala",
+                    "blocks": [
+                        { "blockName": "Bishalgarh", "claims": { "total": 100, "approved": 70, "pending": 25, "rejected": 5 } },
+                        { "blockName": "Jirania", "claims": { "total": 95, "approved": 65, "pending": 25, "rejected": 5 } }
+                    ]
+                }
+            ]
+        },
+        {
+            "stateName": "Telangana",
+            "districts": [
+                {
+                    "districtName": "Rangareddy",
+                    "blocks": [
+                        { "blockName": "Chevella", "claims": { "total": 180, "approved": 130, "pending": 40, "rejected": 10 } },
+                        { "blockName": "Ibrahimpatnam", "claims": { "total": 160, "approved": 110, "pending": 45, "rejected": 5 } }
+                    ]
+                }
+            ]
+        },
+        {
+            "stateName": "Odisha",
+            "districts": [
+                {
+                    "districtName": "Koraput",
+                    "blocks": [
+                        { "blockName": "Koraput", "claims": { "total": 110, "approved": 80, "pending": 25, "rejected": 5 } },
+                        { "blockName": "Lamtaput", "claims": { "total": 90, "approved": 65, "pending": 20, "rejected": 5 } }
+                    ]
+                }
+            ]
+        }
+    ]
+}
