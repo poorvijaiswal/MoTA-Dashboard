@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   FaFileAlt, 
   FaSearch, 
@@ -36,8 +37,13 @@ import { Search, Filter, FileText, MapPin, Calendar, User, ArrowUpDown } from 'l
 
 // Import claims data
 import claimsData from '@/data/claims.json';
+import PattaHolderProfilePage from '@/components/PattaHolderProfilePage';
+import holdersData from '@/data/holders.json';
+import schemesData from '@/data/schemes.json';
+import complaintsData from '@/data/complaints.json';
 
 const ClaimsManagement = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [districtFilter, setDistrictFilter] = useState('all');
@@ -381,7 +387,7 @@ const ClaimsManagement = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" onClick={() => navigate(`/profile/${claim.id}`)}>
                           View
                         </Button>
                         {claim.status === 'pending' && (

@@ -102,8 +102,8 @@ export function useRecommendations(claims: Claim[], schemes: Scheme[]) {
 
   // Derived statistics
   const stats = useMemo(() => {
-    const total = filteredRecommendations.length;
-    const eligible = filteredRecommendations.filter(r => r.score > 0).length;
+  const total = filteredRecommendations.length;
+  const eligible = filteredRecommendations.filter(r => r.suggestedSchemes && r.suggestedSchemes.some(s => s.score > 0.3)).length;
     const highPriority = filteredRecommendations.filter(r => r.priority === 'High').length;
     const mediumPriority = filteredRecommendations.filter(r => r.priority === 'Medium').length;
     const lowPriority = filteredRecommendations.filter(r => r.priority === 'Low').length;

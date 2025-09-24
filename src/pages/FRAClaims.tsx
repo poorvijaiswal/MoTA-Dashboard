@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,7 @@ import { Search, Filter, FileText, MapPin, Calendar, User, ArrowUpDown } from 'l
 // Import data
 import claimsData from '@/data/claims.json';
 import holdersData from '@/data/holders.json';
+import PattaHolderProfilePage from '@/components/PattaHolderProfilePage';
 
 const FRAClaims = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +22,7 @@ const FRAClaims = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const navigate = useNavigate();
 
   // Get unique values for filters
   const states = [...new Set(claimsData.claims.map(claim => claim.state))];
@@ -322,7 +325,7 @@ const FRAClaims = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" onClick={() => navigate(`/profile/${claim.id}`)}>
                           View
                         </Button>
                         {claim.status === 'pending' && (

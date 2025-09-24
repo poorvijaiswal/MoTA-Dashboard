@@ -43,6 +43,7 @@ export default function DSSEngine(): JSX.Element {
 
   // UI state
   const [selectedRow, setSelectedRow] = useState<RecommendationRow | null>(null);
+  const [showMainContent, setShowMainContent] = useState(false);
 
   /* ----------------------- Export functions ----------------------- */
   function exportCSV() {
@@ -154,17 +155,17 @@ export default function DSSEngine(): JSX.Element {
         {/* Segment Builder Sidebar */}
         <div className="w-80 bg-white border-r border-gray-200 h-auto overflow-y-auto">
           <div className="px-6 py-2">
-            <div className="flex items-center space-x-2 mb-6">
+            {/* <div className="flex items-center space-x-2 mb-6">
               <div className="p-2 bg-blue-100 rounded">
                 <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                 </svg>
               </div>
               <h2 className="text-lg font-semibold text-gray-900">Segment Builder</h2>
-            </div>
+            </div> */}
 
             <div className="space-y-2">
-              {/* State Filter */}
+              {/* ...existing filters... */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
                 <select 
@@ -291,235 +292,212 @@ export default function DSSEngine(): JSX.Element {
               </div>
             </div>
 
-            {/* Real-time Stats */}
-            <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Live Statistics</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Total Patta Holders:</span>
-                  <span className="text-sm font-semibold">{stats.total.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Eligible for Schemes:</span>
-                  <span className="text-sm font-semibold">{stats.eligible.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">High Priority:</span>
-                  <span className="text-sm font-semibold text-red-600">{stats.highPriority}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Medium Priority:</span>
-                  <span className="text-sm font-semibold text-yellow-600">{stats.mediumPriority}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Low Priority:</span>
-                  <span className="text-sm font-semibold text-green-600">{stats.lowPriority}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Top Schemes */}
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-              <h3 className="text-sm font-medium text-blue-900 mb-3">Most Recommended Schemes</h3>
-              <div className="space-y-2">
-                {Object.entries(stats.schemeDistribution)
-                  .sort(([,a], [,b]) => b - a)
-                  .slice(0, 3)
-                  .map(([schemeName, count]) => (
-                    <div key={schemeName} className="flex justify-between">
-                      <span className="text-xs text-blue-700 truncate">{schemeName}</span>
-                      <span className="text-xs font-semibold text-blue-900">{count}</span>
-                    </div>
-                  ))}
-              </div>
+            {/* Run DSS Button */}
+            <div className="mt-8 flex justify-center">
+              <button
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow hover:bg-blue-700 transition"
+                onClick={() => setShowMainContent(true)}
+              >
+                Run DSS
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Main Content Area */}
+        {/* Main Content Area (conditionally rendered) */}
         <div className="flex-1 overflow-hidden">
-          {/* Recommendations Header */}
-          <div className="bg-white border-b border-gray-200 px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-green-100 rounded">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Live Recommendations ({stats.total})</h2>
-                  <p className="text-sm text-gray-600">Real-time scheme recommendations based on eligibility analysis</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <input
-                  type="search"
-                  placeholder="Search by name or village..."
-                  value={filters.searchText}
-                  onChange={(e) => updateFilter('searchText', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64"
-                />
-                <select 
-                  value={sort.sortBy} 
-                  onChange={(e) => updateSort(e.target.value as any)} 
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="score">Sort by Score</option>
-                  <option value="priority">Sort by Priority</option>
-                  <option value="holderName">Sort by Name</option>
-                </select>
-                <button
-                  onClick={() => updateSort(sort.sortBy, !sort.sortDesc)}
-                  className="p-2 border border-gray-300 rounded-md hover:bg-gray-50"
-                  title={sort.sortDesc ? "Sort Ascending" : "Sort Descending"}
-                >
-                  <svg className={`w-4 h-4 transform ${sort.sortDesc ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+          {!showMainContent ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center">
+                <svg className="w-16 h-16 text-blue-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">Run DSS to see scheme recommendations</h2>
+                <p className="text-gray-500">Click the <span className="font-semibold text-blue-600">Run DSS</span> button in the sidebar to generate recommendations for patta holders.</p>
               </div>
             </div>
-          </div>
-
-          {/* Recommendations List */}
-          <div className="p-6 h-full overflow-y-auto">
-            <div className="space-y-4">
-              {recommendations.map((r) => (
-                <div key={r.recommendationId} className="bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedRow(r)}>
-                  <div className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-3">
-                            <h3 className="text-lg font-medium text-gray-900">{r.holderName}</h3>
-                            {priorityBadge(r.priority)}
-                            <span className="text-sm text-gray-500">→ {Math.round(r.score * 100)}% match</span>
-                          </div>
-                          <div className="mt-1 flex items-center space-x-4 text-sm text-gray-500">
-                            <span>{r.target}</span>
-                            <span>Updated now</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="flex items-center space-x-2">
-                          <button 
-                            onClick={(e) => { e.stopPropagation(); setSelectedRow(r); }}
-                            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
-                          >
-                            View Profile
-                          </button>
-                          <button className="px-3 py-1 text-sm bg-black text-white rounded hover:bg-gray-800">
-                            Generate Letter
-                          </button>
-                        </div>
-                      </div>
+          ) : (
+            <div>
+              {/* Stats and Top Schemes at top */}
+              <div className="flex flex-col md:flex-row gap-6 px-6 pt-6">
+                {/* Live Statistics */}
+                <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Live Statistics</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Total Patta Holders:</span>
+                      <span className="text-sm font-semibold">{stats.total.toLocaleString()}</span>
                     </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Eligible for Schemes:</span>
+                      <span className="text-sm font-semibold">{stats.eligible.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">High Priority:</span>
+                      <span className="text-sm font-semibold text-red-600">{stats.highPriority}</span>
+                    </div>
+                    
+                  </div>
+                </div>
+                {/* Top Schemes */}
+                <div className="flex-1 p-4 bg-blue-50 rounded-lg">
+                  <h3 className="text-sm font-medium text-blue-900 mb-3">Most Recommended Schemes</h3>
+                  <div className="space-y-2">
+                    {Object.entries(stats.schemeDistribution)
+                      .sort(([,a], [,b]) => b - a)
+                      .slice(0, 3)
+                      .map(([schemeName, count]) => (
+                        <div key={schemeName} className="flex justify-between">
+                          <span className="text-xs text-blue-700 truncate">{schemeName}</span>
+                          <span className="text-xs font-semibold text-blue-900">{count}</span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+              {/* ...existing recommendations and pagination code... */}
+              {/* Recommendations Header */}
+              
 
-                    {/* Scheme Recommendations */}
-                    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {r.suggestedSchemes.slice(0, 3).map((scheme) => (
-                        <div key={scheme.id} className="p-3 bg-gray-50 rounded-lg">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-medium text-sm text-gray-900">{scheme.name}</div>
-                              <div className="text-xs text-gray-600 mt-1">{Math.round((scheme.score || 0) * 100)}% match</div>
+              {/* Recommendations List */}
+              <div className="p-6 h-full overflow-y-auto">
+                <div className="space-y-4">
+                  {recommendations.map((r) => (
+                    <div key={r.recommendationId} className="bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedRow(r)}>
+                      <div className="p-6">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-3">
+                                <h3 className="text-lg font-medium text-gray-900">{r.holderName}</h3>
+                                {priorityBadge(r.priority)}
+                                <span className="text-sm text-gray-500">→ {Math.round(r.score * 100)}% match</span>
+                              </div>
+                              <div className="mt-1 flex items-center space-x-4 text-sm text-gray-500">
+                                <span>{r.target}</span>
+                                <span>Updated now</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center space-x-2">
+                              <button 
+                                onClick={(e) => { e.stopPropagation(); setSelectedRow(r); }}
+                                className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                              >
+                                View Profile
+                              </button>
+                              <button className="px-3 py-1 text-sm bg-black text-white rounded hover:bg-gray-800">
+                                Generate Letter
+                              </button>
                             </div>
                           </div>
                         </div>
-                      ))}
-                      
-                      {r.suggestedSchemes.length === 0 && (
-                        <div className="col-span-3 p-3 bg-gray-50 rounded-lg text-center text-sm text-gray-500">
-                          No scheme recommendations available for current filters
+
+                        {/* Scheme Recommendations */}
+                        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {r.suggestedSchemes.slice(0, 3).map((scheme) => (
+                            <div key={scheme.id} className="p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <div className="font-medium text-sm text-gray-900">{scheme.name}</div>
+                                  <div className="text-xs text-gray-600 mt-1">{Math.round((scheme.score || 0) * 100)}% match</div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                          
+                          {r.suggestedSchemes.length === 0 && (
+                            <div className="col-span-3 p-3 bg-gray-50 rounded-lg text-center text-sm text-gray-500">
+                              No scheme recommendations available for current filters
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
+                    </div>
+                  ))}
+
+                  {recommendations.length === 0 && (
+                    <div className="text-center py-12">
+                      <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">No recommendations found</h3>
+                      <p className="text-gray-500 max-w-md mx-auto">
+                        Try adjusting your filters or enable "Show only eligible recommendations" to see results.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Pagination */}
+                {stats.totalPages > 1 && (
+                  <div className="mt-6 flex items-center justify-between bg-white border border-gray-200 rounded-lg px-6 py-4">
+                    <div className="text-sm text-gray-700">
+                      Showing {(pagination.page - 1) * pagination.pageSize + 1} to {Math.min(pagination.page * pagination.pageSize, stats.total)} of {stats.total} results
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button 
+                        onClick={() => updatePagination({ page: 1 })} 
+                        disabled={pagination.page === 1} 
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        First
+                      </button>
+                      <button 
+                        onClick={() => updatePagination({ page: Math.max(1, pagination.page - 1) })} 
+                        disabled={pagination.page === 1} 
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        Previous
+                      </button>
+                      
+                      {/* Page Numbers */}
+                      {[...Array(Math.min(5, stats.totalPages))].map((_, i) => {
+                        const pageNum = Math.max(1, pagination.page - 2) + i;
+                        if (pageNum > stats.totalPages) return null;
+                        return (
+                          <button
+                            key={pageNum}
+                            onClick={() => updatePagination({ page: pageNum })}
+                            className={`px-3 py-2 text-sm border rounded-md ${
+                              pagination.page === pageNum 
+                                ? 'bg-blue-600 text-white border-blue-600' 
+                                : 'border-gray-300 hover:bg-gray-50'
+                            }`}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+                      
+                      <button 
+                        onClick={() => updatePagination({ page: Math.min(stats.totalPages, pagination.page + 1) })} 
+                        disabled={pagination.page === stats.totalPages} 
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        Next
+                      </button>
+                      <button 
+                        onClick={() => updatePagination({ page: stats.totalPages })} 
+                        disabled={pagination.page === stats.totalPages} 
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        Last
+                      </button>
                     </div>
                   </div>
-                </div>
-              ))}
-
-              {recommendations.length === 0 && (
-                <div className="text-center py-12">
-                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No recommendations found</h3>
-                  <p className="text-gray-500 max-w-md mx-auto">
-                    Try adjusting your filters or enable "Show only eligible recommendations" to see results.
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Pagination */}
-            {stats.totalPages > 1 && (
-              <div className="mt-6 flex items-center justify-between bg-white border border-gray-200 rounded-lg px-6 py-4">
-                <div className="text-sm text-gray-700">
-                  Showing {(pagination.page - 1) * pagination.pageSize + 1} to {Math.min(pagination.page * pagination.pageSize, stats.total)} of {stats.total} results
-                </div>
-                <div className="flex items-center space-x-2">
-                  <button 
-                    onClick={() => updatePagination({ page: 1 })} 
-                    disabled={pagination.page === 1} 
-                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    First
-                  </button>
-                  <button 
-                    onClick={() => updatePagination({ page: Math.max(1, pagination.page - 1) })} 
-                    disabled={pagination.page === 1} 
-                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    Previous
-                  </button>
-                  
-                  {/* Page Numbers */}
-                  {[...Array(Math.min(5, stats.totalPages))].map((_, i) => {
-                    const pageNum = Math.max(1, pagination.page - 2) + i;
-                    if (pageNum > stats.totalPages) return null;
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => updatePagination({ page: pageNum })}
-                        className={`px-3 py-2 text-sm border rounded-md ${
-                          pagination.page === pageNum 
-                            ? 'bg-blue-600 text-white border-blue-600' 
-                            : 'border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
-                  
-                  <button 
-                    onClick={() => updatePagination({ page: Math.min(stats.totalPages, pagination.page + 1) })} 
-                    disabled={pagination.page === stats.totalPages} 
-                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    Next
-                  </button>
-                  <button 
-                    onClick={() => updatePagination({ page: stats.totalPages })} 
-                    disabled={pagination.page === stats.totalPages} 
-                    className="px-3 py-2 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    Last
-                  </button>
-                </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 

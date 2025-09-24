@@ -15,6 +15,7 @@ import Complaints from "./pages/Complaints";
 import DSSEngine from "./pages/DSSEngine";
 import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
+import PattaHolderProfilePage from "./components/PattaHolderProfilePage";
 import Home from "./pages/Home";
 import NGODashboard from "./pages/Dashboard/NGO/NGODashboard";
 import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDashboard";
@@ -126,6 +127,8 @@ const App = () => (
             }
           />
 
+          {/* Patta Holder Full Profile Route */}
+          <Route path="/profile/:claimId" element={<PattaHolderProfilePage />} />
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

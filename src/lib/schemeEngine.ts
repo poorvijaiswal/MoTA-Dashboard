@@ -468,17 +468,16 @@ export function generateRecommendations(
     return true;
   });
 
-  // Generate recommendations
-  return filteredClaims.map((h) => {
+  // Calculate all scores first
+  const recs = filteredClaims.map((h) => {
+    let combined = 0;
+    let topSchemes: SchemeMatch[] = [];
     if (filters.selectedSchemeId) {
       // Single scheme analysis
       const rule = rules[filters.selectedSchemeId];
       const result = rule ? rule(h) : { eligible: false, reason: "Scheme not found", score: 0 };
-      
       const key = `${h.state || "_"}||${h.district || "_"}||${h.village || "_"}`;
       const vagg = villageAggs[key];
-      
-      // Add village urgency
       let villageUrgency = 0;
       if (vagg) {
         if (typeof vagg.waterIndex === "number") {
@@ -487,37 +486,20 @@ export function generateRecommendations(
         if (vagg.hasMFP) villageUrgency += 0.1;
         villageUrgency += Math.min(vagg.count / 100, 0.15);
       }
-      
-      const combined = Math.min(1, result.score + villageUrgency);
-      const priority = combined >= 0.7 ? "High" : combined >= 0.4 ? "Medium" : "Low";
-      
-      const suggestedSchemes: SchemeMatch[] = result.score > 0 ? [{
+      combined = Math.min(1, result.score + villageUrgency);
+      topSchemes = result.score > 0 ? [{
         id: filters.selectedSchemeId,
         name: schemes.find(s => s.id === filters.selectedSchemeId)?.name || filters.selectedSchemeId,
         score: result.score,
         reason: result.reason,
         ministry: schemes.find(s => s.id === filters.selectedSchemeId)?.ministry
       }] : [];
-      
-      return {
-        recommendationId: makeId("REC"),
-        holderId: h.id,
-        holderName: h.holder_name ?? h.id,
-        target: `${h.village ?? "-"}, ${h.district ?? "-"}`,
-        suggestedSchemes,
-        priority: priority as "High" | "Medium" | "Low",
-        score: combined,
-        beneficiaries: 1,
-        raw: h,
-      };
     } else {
       // Multi-scheme analysis
       const schemeScores: SchemeMatch[] = [];
-      
       Object.keys(rules).forEach(schemeId => {
         const rule = rules[schemeId];
         const result = rule(h);
-        
         if (result.eligible && result.score > 0) {
           const scheme = schemes.find(s => s.id === schemeId);
           schemeScores.push({
@@ -529,12 +511,9 @@ export function generateRecommendations(
           });
         }
       });
-      
-      // Add village urgency to all scores
       const key = `${h.state || "_"}||${h.district || "_"}||${h.village || "_"}`;
       const vagg = villageAggs[key];
       let villageUrgency = 0;
-      
       if (vagg) {
         if (typeof vagg.waterIndex === "number") {
           villageUrgency += Math.max(0, (50 - vagg.waterIndex) / 50) * 0.3;
@@ -542,31 +521,43 @@ export function generateRecommendations(
         if (vagg.hasMFP) villageUrgency += 0.1;
         villageUrgency += Math.min(vagg.count / 100, 0.15);
       }
-      
-      // Enhance scores with village urgency
       const enhancedSchemes = schemeScores.map(s => ({
         ...s,
         score: Math.min(1, s.score + villageUrgency)
       }));
-      
-      // Sort by score and take top recommendations
       enhancedSchemes.sort((a, b) => b.score - a.score);
-      const topSchemes = enhancedSchemes.slice(0, 3); // Top 3 recommendations
-      
-      const combinedScore = topSchemes.length ? topSchemes[0].score : Math.min(1, villageUrgency * 0.8);
-      const priority = combinedScore >= 0.7 ? "High" : combinedScore >= 0.4 ? "Medium" : "Low";
-      
-      return {
-        recommendationId: makeId("REC"),
-        holderId: h.id,
-        holderName: h.holder_name ?? h.id,
-        target: `${h.village ?? "-"}, ${h.district ?? "-"}`,
-        suggestedSchemes: topSchemes,
-        priority: priority as "High" | "Medium" | "Low",
-        score: combinedScore,
-        beneficiaries: 1,
-        raw: h,
-      };
+      topSchemes = enhancedSchemes.slice(0, 3);
+      combined = topSchemes.length ? topSchemes[0].score : Math.min(1, villageUrgency * 0.8);
     }
+    return {
+      recommendationId: makeId("REC"),
+      holderId: h.id,
+      holderName: h.holder_name ?? h.id,
+      target: `${h.village ?? "-"}, ${h.district ?? "-"}`,
+      suggestedSchemes: topSchemes,
+      score: combined,
+      beneficiaries: 1,
+      raw: h,
+      priority: undefined as "High" | "Medium" | "Low" | undefined,
+    };
   });
+
+  // Sort all by score
+  const sorted = [...recs].sort((a, b) => b.score - a.score);
+  const total = sorted.length;
+  const highCount = Math.floor(total / 3);
+  const mediumCount = Math.floor(total / 3);
+  // Assign priorities
+  sorted.forEach((rec, idx) => {
+    if (idx < highCount) rec.priority = "High";
+    else if (idx < highCount + mediumCount) rec.priority = "Medium";
+    else rec.priority = "Low";
+  });
+
+  // Restore original order
+  const recMap = new Map(sorted.map(r => [r.recommendationId, r.priority]));
+  return recs.map(r => ({
+    ...r,
+    priority: recMap.get(r.recommendationId) as "High" | "Medium" | "Low"
+  }));
 }
