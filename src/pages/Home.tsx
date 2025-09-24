@@ -1,14 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { login } from "@/utils/auth"; // Adjust import as needed
+import { Card } from "@/components/ui/card";
+import { login } from "@/utils/auth";
+import motaLogo from "@/../public/mota-logo.webp";
+
+import type { UserRole } from "@/utils/auth"; // Ensure UserRole is imported
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (role: string) => {
-    login(role as any);
+  const handleLogin = (role: UserRole) => {
+    login(role);
     switch (role) {
       case "state":
         navigate("/dashboard/state");
@@ -33,7 +36,7 @@ const Home = () => {
     }
   };
 
-  const roles = [
+  const roles: { label: string; role: UserRole }[] = [
     { label: "State Tribal & Forest Dept", role: "state" },
     { label: "District Tribal & Forest Dept", role: "district" },
     { label: "Revenue Department", role: "revenue" },
@@ -43,40 +46,80 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
-      <Card className="max-w-5xl w-full shadow-2xl rounded-lg p-8 flex flex-col md:flex-row gap-10">
-        {/* Left Info Section */}
-        <section className="flex-1 flex flex-col justify-center space-y-6">
-          <h1 className="text-5xl font-extrabold text-emerald-700 leading-tight drop-shadow-lg">
-            VanSampada Portal
-          </h1>
-          <p className="text-lg text-gray-700 max-w-md">
-            AI-powered FRA Atlas and WebGIS-based Decision Support System (DSS) for integrated monitoring and management of Forest Rights Act implementation in Madhya Pradesh, Tripura, Odisha, Telangana.
-          </p>
-          <p className="text-sm text-gray-600 max-w-md">
-            Supporting ministries, tribal welfare departments, revenue, planning authorities, and NGOs working with tribal communities.
-          </p>
-        </section>
-
-        {/* Right Login Section */}
-        <section className="flex-1 bg-white rounded-md shadow-md p-6 flex flex-col space-y-6">
-          <h2 className="text-2xl font-bold text-center text-gray-900">
-            Select Your Role to Login
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {roles.map(({ label, role }) => (
-              <Button
-                key={role}
-                variant="outline"
-                className="text-gray-800 hover:bg-primary hover:text-white transition-colors"
-                onClick={() => handleLogin(role)}
-              >
-                {label}
-              </Button>
-            ))}
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* Left Section - Brand & Information */}
+      <div className="flex-1 min-h-[40vh] md:min-h-screen bg-gradient-hero bg-pattern-bg flex flex-col items-center justify-center p-8 text-amber-300 relative overflow-hidden">
+        {/* Background Pattern Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-blue-300 via-blue-400"></div>
+        
+        <div className="relative z-10 max-w-lg text-center space-y-8">
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full p-6 shadow-elegant">
+              <img 
+                src={motaLogo} 
+                alt="Ministry of Tribal Affairs Logo" 
+                className="w-45 h-45 object-contain rounded-full"
+              />
+            </div>
           </div>
-        </section>
-      </Card>
+
+          {/* Title */}
+          <div className="space-y-4">
+            <h1 className="text-5xl font-bold tracking-tight">
+              VanSampada Portal
+            </h1>
+            <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+          </div>
+
+          {/* Subtitle */}
+          <div className="space-y-4 text-white/90">
+            <p className="text-lg leading-relaxed">
+              AI-powered FRA Atlas & WebGIS DSS for monitoring Forest Rights Act implementation across Madhya Pradesh, Tripura, Odisha, Telangana.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Right Section - Login */}
+      <div className="flex-1 min-h-[60vh] md:min-h-screen flex items-center justify-center p-8 bg-gradient-to-b from-blue-200 to-blue-300">
+        <Card className="w-full max-w-md p-8 shadow-elegant bg-amber-400">
+          <div className="space-y-8">
+            {/* Login Header */}
+            <div className="text-center space-y-2">
+              <h2 className="text-3xl font-bold text-foreground">
+                Select Your Role
+              </h2>
+              <p className="text-muted-foreground">
+                Choose your department to access the portal
+              </p>
+            </div>
+
+            {/* Role Selection Buttons */}
+            <div className="space-y-4">
+              {roles.map(({ label, role }) => (
+                <Button
+                  key={role}
+                  variant="default"
+                  size="lg"
+                  className="w-full text-left justify-start h-14 font-medium bg-white text-amber-700 hover:bg-amber-100 shadow-md hover:shadow-lg transition-all duration-200"
+                  onClick={() => handleLogin(role)}
+                >
+                  {label}
+                </Button>
+              ))}
+            </div>
+
+            {/* Footer Note */}
+            <div className="text-center text-sm text-muted-foreground border-t pt-6">
+              Secure access for authorized personnel only
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Mobile Layout Adjustment - Using Tailwind classes instead */}
     </div>
   );
 };
