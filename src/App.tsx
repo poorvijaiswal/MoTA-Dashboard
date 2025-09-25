@@ -41,6 +41,7 @@ import DistrictTaskManagement from "./pages/Dashboard/District Department/pages/
 import DistrictComplaints from "./pages/Dashboard/District Department/pages/DistrictComplaints";
 import DistrictAnalytics from "./pages/Dashboard/District Department/pages/DistrictAnalytics";
 import DistrictFRAAtlasPage from "./pages/Dashboard/District Department/pages/DistrictFRAAtlasPage";
+import DataIngestion from "./pages/Dashboard/District Department/pages/DataIngestion";
 
 const queryClient = new QueryClient();
 
@@ -122,6 +123,7 @@ const App = () => (
             <Route path="reports" element={<DistrictAnalytics />} />
             <Route path="analytics" element={<DistrictAnalytics />} />
             <Route path="fra-atlas" element={<DistrictFRAAtlasPage />} />
+            <Route path="data-ingestion" element={<DataIngestion />} />
           </Route>
           <Route
             path="/dashboard/revenue"

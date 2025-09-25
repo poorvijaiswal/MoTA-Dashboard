@@ -159,7 +159,7 @@ const Header = () => {
       </div>
 
       {/* Modern Navigation Menu */}
-      <div className="bg-white/90 border-b border-slate-200 shadow-sm bg-blue-300 backdrop-blur-md">
+      <div className="bg-white/90 border-b border-slate-200 shadow-sm bg-blue-400 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex items-center space-x-4 relative">
             {navigationMenus.map((menu) => (

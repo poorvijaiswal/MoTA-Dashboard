@@ -35,6 +35,11 @@ const Header = () => {
       ]
     },
     {
+      title: 'Data Ingestion',
+      icon: FaFileExport,
+      href: '/dashboard/district/data-ingestion',
+    },
+    {
       title: 'FRA Management',
       icon: FaFileAlt,
       dropdown: [
@@ -159,7 +164,7 @@ const Header = () => {
       </div>
 
       {/* Modern Navigation Menu */}
-      <div className="bg-white/90 border-b border-slate-200 shadow-sm backdrop-blur-md bg-blue-300">
+      <div className="bg-white/90 border-b border-slate-200 shadow-sm backdrop-blur-md bg-blue-400">
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex items-center space-x-4 relative">
             {navigationMenus.map((menu) => (
