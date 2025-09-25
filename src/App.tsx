@@ -19,7 +19,7 @@ import PattaHolderProfilePage from "./components/PattaHolderProfilePage";
 import Home from "./pages/Home";
 import NGODashboard from "./pages/Dashboard/NGO/NGODashboard";
 import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDashboard";
-import RevenueDashboard from "./pages/Dashboard/Revenue Dept/RevenueDashboard";
+import RevenueDashboard from "./pages/Dashboard/Tribal/TribalDashboard";
 import DistrictDeptDashboard from "./pages/Dashboard/District Department/DistrictDeptDashboard";
 import PlanningDashboard from "./pages/Dashboard/Planning Authority/PlanningDashboard";
 import StateDashboard from "./pages/Dashboard/State Department/pages/StateDashboard";
@@ -42,6 +42,7 @@ import DistrictComplaints from "./pages/Dashboard/District Department/pages/Dist
 import DistrictAnalytics from "./pages/Dashboard/District Department/pages/DistrictAnalytics";
 import DistrictFRAAtlasPage from "./pages/Dashboard/District Department/pages/DistrictFRAAtlasPage";
 import DataIngestion from "./pages/Dashboard/District Department/pages/DataIngestion";
+import TribalDashboard from "./pages/Dashboard/Tribal/TribalDashboard";
 
 const queryClient = new QueryClient();
 
@@ -126,10 +127,10 @@ const App = () => (
             <Route path="data-ingestion" element={<DataIngestion />} />
           </Route>
           <Route
-            path="/dashboard/revenue"
+            path="/dashboard/tribal"
             element={
               <ProtectedRoute>
-                <RevenueDashboard />
+                <TribalDashboard />
               </ProtectedRoute>
             }
           />

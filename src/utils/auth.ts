@@ -1,7 +1,7 @@
 export type UserRole = 
   | "state"
   | "district"
-  | "revenue"
+  | "tribal"
   | "planning"
   | "ngo"
   | "mota";

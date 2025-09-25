@@ -19,8 +19,8 @@ const Home = () => {
       case "district":
         navigate("/dashboard/district");
         break;
-      case "revenue":
-        navigate("/dashboard/revenue");
+      case "tribal":
+        navigate("/dashboard/tribal");
         break;
       case "planning":
         navigate("/dashboard/planning");
@@ -36,13 +36,13 @@ const Home = () => {
     }
   };
 
-  const roles: { label: string; role: UserRole }[] = [
+  const roles: { label: string; role: UserRole }[] = [    
+    { label: "MoTA (Admin)", role: "mota" },
     { label: "State Tribal & Forest Dept", role: "state" },
     { label: "District Tribal & Forest Dept", role: "district" },
-    { label: "Revenue Department", role: "revenue" },
-    { label: "Planning Authorities", role: "planning" },
+    { label: "Planning & Revenue Department", role: "planning" },
     { label: "NGO", role: "ngo" },
-    { label: "MoTA (Admin)", role: "mota" },
+    { label: "Tribals", role: "tribal" },
   ];
 
   return (

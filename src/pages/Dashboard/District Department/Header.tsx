@@ -146,7 +146,7 @@ const Header = () => {
 
             <div className="flex items-center space-x-2 bg-slate-100/80 px-3 py-2 rounded-xl shadow">
               <FaUser className="w-5 h-5 text-slate-700" />
-              <span className="text-sm font-semibold text-slate-800">Officer A. Kumar</span>
+              <span className="text-sm font-semibold text-slate-800">District Officer</span>
             </div>
 
             <button 
