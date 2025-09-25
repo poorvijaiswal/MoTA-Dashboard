@@ -32,6 +32,15 @@ import StateFRAAtlasPage from "./pages/Dashboard/State Department/pages/StateFRA
 import ClaimsManagement from "./pages/Dashboard/State Department/pages/ClaimsManagement";
 import FieldVerification from "./pages/Dashboard/State Department/pages/FieldVerification";
 import TaskManagement from "./pages/Dashboard/State Department/pages/TaskManagement";
+import DistrictBeneficiaries from "./pages/Dashboard/District Department/pages/DistrictBeneficiaries";
+import DistrictDashboard from "./pages/Dashboard/District Department/pages/DistrictDashboard";
+import DistrictClaimsManagement from "./pages/Dashboard/District Department/pages/DistrictClaimsManagement";
+import DistrictFieldVerification from "./pages/Dashboard/District Department/pages/DistrictFieldVerification"
+import DistrictSchemes from "./pages/Dashboard/District Department/pages/DistrictSchemes"
+import DistrictTaskManagement from "./pages/Dashboard/District Department/pages/DistrictTaskManagement"  
+import DistrictComplaints from "./pages/Dashboard/District Department/pages/DistrictComplaints";
+import DistrictAnalytics from "./pages/Dashboard/District Department/pages/DistrictAnalytics";
+import DistrictFRAAtlasPage from "./pages/Dashboard/District Department/pages/DistrictFRAAtlasPage";
 
 const queryClient = new QueryClient();
 
@@ -101,7 +110,19 @@ const App = () => (
                 <DistrictDeptDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<DistrictDashboard />} />
+            <Route path="claims" element={<DistrictClaimsManagement />} />
+            <Route path="verification" element={<DistrictFieldVerification />} />
+            <Route path="tasks" element={<DistrictTaskManagement />} />
+            <Route path="schemes" element={<DistrictSchemes />} />
+            <Route path="beneficiaries" element={<DistrictBeneficiaries />} />
+            <Route path="complaints" element={<DistrictComplaints />} />
+            <Route path="dss" element={<DSSEngine />} />
+            <Route path="reports" element={<DistrictAnalytics />} />
+            <Route path="analytics" element={<DistrictAnalytics />} />
+            <Route path="fra-atlas" element={<DistrictFRAAtlasPage />} />
+          </Route>
           <Route
             path="/dashboard/revenue"
             element={

@@ -153,7 +153,7 @@ export default function DSSEngine(): JSX.Element {
 
       <div className="flex">
         {/* Segment Builder Sidebar */}
-        <div className="w-80 bg-white border-r border-gray-200 h-auto overflow-y-auto">
+        <div className="w-80 bg-white border-r border-gray-200 h-auto min-h-screen overflow-y-auto">
           <div className="px-6 py-2">
             {/* <div className="flex items-center space-x-2 mb-6">
               <div className="p-2 bg-blue-100 rounded">
@@ -206,63 +206,6 @@ export default function DSSEngine(): JSX.Element {
                 </select>
               </div>
 
-              {/* Tribe Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Tribe</label>
-                <select 
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                  value={filters.selectedTribe} 
-                  onChange={(e) => updateFilter('selectedTribe', e.target.value)}
-                >
-                  <option value="">All Tribes</option>
-                  {locationOptions.tribes.map((t) => <option key={t} value={t}>{t}</option>)}
-                </select>
-              </div>
-
-              {/* Patta Type */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Patta Type</label>
-                <select 
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                  value={filters.pattalType} 
-                  onChange={(e) => updateFilter('pattalType', e.target.value)}
-                >
-                  <option value="">All Types</option>
-                  <option value="Individual">Individual</option>
-                  <option value="Community">Community</option>
-                  <option value="CFR">Community Forest Rights</option>
-                </select>
-              </div>
-
-              {/* Water Index */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Water Index</label>
-                <select 
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                  value={filters.waterIndex} 
-                  onChange={(e) => updateFilter('waterIndex', e.target.value)}
-                >
-                  <option value="">All Levels</option>
-                  <option value="high">High (&gt;70)</option>
-                  <option value="medium">Medium (40-70)</option>
-                  <option value="low">Low (&lt;40)</option>
-                </select>
-              </div>
-
-              {/* Income Level */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Income Level</label>
-                <select 
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                  value={filters.incomeLevel} 
-                  onChange={(e) => updateFilter('incomeLevel', e.target.value)}
-                >
-                  <option value="">All Levels</option>
-                  <option value="below_poverty">Below Poverty Line</option>
-                  <option value="low">Low Income</option>
-                  <option value="medium">Medium Income</option>
-                </select>
-              </div>
 
               {/* Scheme Category */}
               <div>

@@ -29,47 +29,47 @@ const Header = () => {
       title: 'Dashboard',
       icon: FaHome,
       dropdown: [
-        { title: 'Overview', href: '/dashboard/state', icon: FaHome },
-        { title: 'Analytics', href: '/dashboard/state/analytics', icon: FaChartBar },
-        { title: 'FRA Atlas', href: '/dashboard/state/fra-atlas', icon: FaMap },
+        { title: 'Overview', href: '/dashboard/district', icon: FaHome },
+        { title: 'Analytics', href: '/dashboard/district/analytics', icon: FaChartBar },
+        { title: 'FRA Atlas', href: '/dashboard/district/fra-atlas', icon: FaMap },
       ]
     },
     {
       title: 'FRA Management',
       icon: FaFileAlt,
       dropdown: [
-        { title: 'Claims Management', href: '/dashboard/state/claims', icon: FaFileAlt },
-        { title: 'Field Verification', href: '/dashboard/state/verification', icon: FaMap },
-        { title: 'Task Management', href: '/dashboard/state/tasks', icon: FaClipboardCheck }
+        { title: 'Claims Management', href: '/dashboard/district/claims', icon: FaFileAlt },
+        { title: 'Field Verification', href: '/dashboard/district/verification', icon: FaMap },
+        { title: 'Task Management', href: '/dashboard/district/tasks', icon: FaClipboardCheck }
       ]
     },
     {
       title: 'Beneficiaries',
       icon: FaUsers,
-      href: '/dashboard/state/beneficiaries',
+      href: '/dashboard/district/beneficiaries',
       dropdown: [
-        { title: 'Patta Holders', href: '/dashboard/state/beneficiaries', icon: FaUsers },
-        { title: 'Community Rights', href: '/dashboard/state/community', icon: FaUsers },
-        { title: 'Individual Rights', href: '/dashboard/state/individual', icon: FaUser }
+        { title: 'Patta Holders', href: '/dashboard/district/beneficiaries', icon: FaUsers },
+        { title: 'Community Rights', href: '/dashboard/district/community', icon: FaUsers },
+        { title: 'Individual Rights', href: '/dashboard/district/individual', icon: FaUser }
       ]
     },
     {
       title: 'Schemes',
       icon: FaFileExport,
-      href: '/dashboard/state/schemes',
+      href: '/dashboard/district/schemes',
       dropdown: [
-        { title: 'Active Schemes', href: '/dashboard/state/schemes', icon: FaFileExport },
-        { title: 'Policy Management', href: '/dashboard/state/policies', icon: FaCog },
-        { title: 'Budget Allocation', href: '/dashboard/state/budget', icon: FaChartBar }
+        { title: 'Active Schemes', href: '/dashboard/district/schemes', icon: FaFileExport },
+        { title: 'Policy Management', href: '/dashboard/district/policies', icon: FaCog },
+        { title: 'Budget Allocation', href: '/dashboard/district/budget', icon: FaChartBar }
       ]
     },
     {
       title: 'Support',
       icon: FaComments,
       dropdown: [
-        { title: 'Complaints', href: '/dashboard/state/complaints', icon: FaComments },
-        { title: 'DSS Recommendations', href: '/dashboard/state/dss', icon: FaBrain },
-        { title: 'Help Center', href: '/dashboard/state/help', icon: FaComments }
+        { title: 'Complaints', href: '/dashboard/district/complaints', icon: FaComments },
+        { title: 'DSS Recommendations', href: '/dashboard/district/dss', icon: FaBrain },
+        { title: 'Help Center', href: '/dashboard/district/help', icon: FaComments }
       ]
     }
   ];
@@ -90,7 +90,7 @@ const Header = () => {
 
   const isActive = (href) => {
     if (!href) return false;
-    if (href === '/dashboard/state') {
+    if (href === '/dashboard/district') {
       return location.pathname === href;
     }
     return location.pathname.startsWith(href);
@@ -125,7 +125,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
               <div>
-                <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight drop-shadow-sm">VanSampada State Portal</h1>
+                <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight drop-shadow-sm">VanSampada District Portal</h1>
                 <p className="text-xs text-slate-500 font-medium tracking-wide">Ministry of Tribal Affairs, Government of India</p>
               </div>
             </div>
@@ -159,7 +159,7 @@ const Header = () => {
       </div>
 
       {/* Modern Navigation Menu */}
-      <div className="bg-white/90 border-b border-slate-200 shadow-sm bg-blue-300 backdrop-blur-md">
+      <div className="bg-white/90 border-b border-slate-200 shadow-sm backdrop-blur-md bg-blue-300">
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex items-center space-x-4 relative">
             {navigationMenus.map((menu) => (
