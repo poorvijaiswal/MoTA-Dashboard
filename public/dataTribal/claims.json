@@ -1,0 +1,58 @@
+{
+  "claims": [
+    {
+      "id": "IFR001",
+      "user_id": "user_001", 
+      "claim_type": "IFR",
+      "claim_type_full": "Individual Forest Rights",
+      "area_hectares": 2.5,
+      "survey_number": "Survey No. 45/2",
+      "village": "Gadchiroli",
+      "district": "Gadchiroli",
+      "state": "Maharashtra",
+      "status": "Approved",
+      "title_holder": "Ram Charan",
+      "recognition_date": "2023-08-15",
+      "validity": "Permanent",
+      "coordinates": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [79.9570, 20.1366],
+            [79.9580, 20.1366], 
+            [79.9580, 20.1376],
+            [79.9570, 20.1376],
+            [79.9570, 20.1366]
+          ]
+        ]
+      },
+      "timeline": [
+        {
+          "date": "2023-02-10",
+          "status": "Submitted",
+          "note": "Claim application submitted to Forest Rights Committee"
+        },
+        {
+          "date": "2023-03-15", 
+          "status": "Under Verification",
+          "note": "Field verification by technical team completed"
+        },
+        {
+          "date": "2023-06-20",
+          "status": "Gram Sabha Approval",
+          "note": "Approved by Gram Sabha with unanimous consent"
+        },
+        {
+          "date": "2023-08-15",
+          "status": "Approved",
+          "note": "Final approval by Sub Divisional Level Committee"
+        }
+      ],
+      "documents": [
+        "FRA_Certificate.pdf",
+        "Survey_Map.pdf", 
+        "Gram_Sabha_Resolution.pdf"
+      ]
+    }
+  ]
+}

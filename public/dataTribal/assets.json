@@ -1,0 +1,74 @@
+{
+  "assets": [
+    {
+      "id": "AST001",
+      "name": "Gadchiroli Reserve Forest",
+      "type": "Forest",
+      "category": "Protected Area",
+      "coordinates": {
+        "latitude": 20.1400,
+        "longitude": 79.9600
+      },
+      "area_hectares": 150.5,
+      "description": "Dense forest area with teak and bamboo plantation",
+      "status": "Active",
+      "authority": "Forest Department"
+    },
+    {
+      "id": "AST002", 
+      "name": "Community Pond",
+      "type": "Water Body",
+      "category": "Pond",
+      "coordinates": {
+        "latitude": 20.1350,
+        "longitude": 79.9550
+      },
+      "area_hectares": 0.8,
+      "description": "Traditional community pond used for irrigation and fishing",
+      "status": "Functional",
+      "authority": "Gram Panchayat"
+    },
+    {
+      "id": "AST003",
+      "name": "Organic Farm Cluster", 
+      "type": "Agriculture",
+      "category": "Farmland",
+      "coordinates": {
+        "latitude": 20.1320,
+        "longitude": 79.9520
+      },
+      "area_hectares": 12.3,
+      "description": "Certified organic farming area for vegetables and grains",
+      "status": "Cultivated",
+      "authority": "Tribal Development Department"
+    },
+    {
+      "id": "AST004",
+      "name": "Bamboo Processing Unit",
+      "type": "Infrastructure", 
+      "category": "Processing Center",
+      "coordinates": {
+        "latitude": 20.1380,
+        "longitude": 79.9580
+      },
+      "area_hectares": 1.2,
+      "description": "Community bamboo processing and value addition center",
+      "status": "Operational",
+      "authority": "Van Dhan Vikas Scheme"
+    },
+    {
+      "id": "AST005",
+      "name": "Medicinal Plant Garden",
+      "type": "Conservation",
+      "category": "Herbal Garden", 
+      "coordinates": {
+        "latitude": 20.1340,
+        "longitude": 79.9540
+      },
+      "area_hectares": 2.1,
+      "description": "Conservation area for traditional medicinal plants",
+      "status": "Maintained",
+      "authority": "AYUSH Department"
+    }
+  ]
+}

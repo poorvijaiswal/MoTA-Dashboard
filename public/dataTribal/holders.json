@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": "user_001",
+      "name": "Ram Charan",
+      "tribe": "Gond",
+      "village": "Gadchiroli",
+      "district": "Gadchiroli",
+      "state": "Maharashtra",
+      "phone": "+91 9876543210",
+      "aadhaar": "****-****-7890",
+      "active_complaints": 2,
+      "eligible_schemes": 3,
+      "linked_land_parcels": 1,
+      "profile_image": null
+    },
+    {
+      "id": "user_002", 
+      "name": "Sita Devi",
+      "tribe": "Santhal",
+      "village": "Dumka",
+      "district": "Dumka", 
+      "state": "Jharkhand",
+      "phone": "+91 9876543211",
+      "aadhaar": "****-****-7891",
+      "active_complaints": 1,
+      "eligible_schemes": 4,
+      "linked_land_parcels": 2,
+      "profile_image": null
+    }
+  ]
+}

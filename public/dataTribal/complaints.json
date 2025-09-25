@@ -1,0 +1,64 @@
+{
+  "complaints": [
+    {
+      "id": "CMP001",
+      "user_id": "user_001",
+      "category": "Land boundary",
+      "title": "Boundary dispute with neighboring land",
+      "description": "Our traditional forest land boundary is being encroached by a neighboring farmer. Need survey team to verify the actual boundary.",
+      "status": "In Progress",
+      "priority": "High",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-20T14:45:00Z",
+      "location": {
+        "latitude": 20.1366,
+        "longitude": 79.9570,
+        "address": "Near Gadchiroli Forest, Maharashtra"
+      },
+      "attachments": ["boundary_photo.jpg"],
+      "timeline": [
+        {
+          "date": "2024-01-15T10:30:00Z",
+          "status": "Submitted",
+          "note": "Complaint filed by Ram Charan"
+        },
+        {
+          "date": "2024-01-18T09:15:00Z",
+          "status": "Assigned",
+          "note": "Assigned to Field Officer Rajesh Kumar"
+        },
+        {
+          "date": "2024-01-20T14:45:00Z",
+          "status": "In Progress",
+          "note": "Survey team scheduled for site visit on 25th Jan"
+        }
+      ],
+      "officer_feedback": "Survey team has been notified. Site visit scheduled for detailed boundary verification."
+    },
+    {
+      "id": "CMP002",
+      "user_id": "user_001",
+      "category": "Scheme issue",
+      "title": "Delayed payment under PM-KISAN scheme",
+      "description": "Have not received the last two installments of PM-KISAN scheme despite having valid documents and land records.",
+      "status": "Pending",
+      "priority": "Medium",
+      "created_at": "2024-01-22T08:20:00Z",
+      "updated_at": "2024-01-22T08:20:00Z",
+      "location": {
+        "latitude": 20.1366,
+        "longitude": 79.9570,
+        "address": "Village Office, Gadchiroli"
+      },
+      "attachments": ["land_documents.pdf", "bank_passbook.jpg"],
+      "timeline": [
+        {
+          "date": "2024-01-22T08:20:00Z",
+          "status": "Submitted",
+          "note": "Complaint filed regarding delayed PM-KISAN payments"
+        }
+      ],
+      "officer_feedback": null
+    }
+  ]
+}

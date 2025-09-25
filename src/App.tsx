@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
@@ -19,14 +20,12 @@ import PattaHolderProfilePage from "./components/PattaHolderProfilePage";
 import Home from "./pages/Home";
 import NGODashboard from "./pages/Dashboard/NGO/NGODashboard";
 import StateDeptDashboard from "./pages/Dashboard/State Department/StateDeptDashboard";
-import RevenueDashboard from "./pages/Dashboard/Tribal/TribalDashboard";
 import DistrictDeptDashboard from "./pages/Dashboard/District Department/DistrictDeptDashboard";
 import PlanningDashboard from "./pages/Dashboard/Planning Authority/PlanningDashboard";
 import StateDashboard from "./pages/Dashboard/State Department/pages/StateDashboard";
 import StateSchemes from "./pages/Dashboard/State Department/pages/StateSchemes";
 import Beneficiaries from "./pages/Dashboard/State Department/pages/Beneficiaries";
 import StateComplaints from "./pages/Dashboard/State Department/pages/StateComplaints";
-import DSS from "./pages/Dashboard/State Department/pages/DSS";
 import StateAnalytics from "./pages/Dashboard/State Department/pages/StateAnalytics";
 import StateFRAAtlasPage from "./pages/Dashboard/State Department/pages/StateFRAAtlasPage";
 import ClaimsManagement from "./pages/Dashboard/State Department/pages/ClaimsManagement";
@@ -37,12 +36,22 @@ import DistrictDashboard from "./pages/Dashboard/District Department/pages/Distr
 import DistrictClaimsManagement from "./pages/Dashboard/District Department/pages/DistrictClaimsManagement";
 import DistrictFieldVerification from "./pages/Dashboard/District Department/pages/DistrictFieldVerification"
 import DistrictSchemes from "./pages/Dashboard/District Department/pages/DistrictSchemes"
-import DistrictTaskManagement from "./pages/Dashboard/District Department/pages/DistrictTaskManagement"  
+import DistrictTaskManagement from "./pages/Dashboard/District Department/pages/DistrictTaskManagement"
 import DistrictComplaints from "./pages/Dashboard/District Department/pages/DistrictComplaints";
 import DistrictAnalytics from "./pages/Dashboard/District Department/pages/DistrictAnalytics";
 import DistrictFRAAtlasPage from "./pages/Dashboard/District Department/pages/DistrictFRAAtlasPage";
 import DataIngestion from "./pages/Dashboard/District Department/pages/DataIngestion";
-import TribalDashboard from "./pages/Dashboard/Tribal/TribalDashboard";
+import TribalDashboard from "./pages/Dashboard/Tribal/pages/TribalDashboard";
+
+import TribalLogin from "./pages/Dashboard/Tribal/pages/TribalLogin";
+import ComplaintsNew from "./pages/Dashboard/Tribal/pages/ComplaintsNew";
+import MyComplaints from "./pages/Dashboard/Tribal/pages/MyComplaints";
+import ComplaintDetail from "./pages/Dashboard/Tribal/pages/ComplaintDetail";
+import TribalSchemes from "./pages/Dashboard/Tribal/pages/TribalSchemes";
+import SchemeDetail from "./pages/Dashboard/Tribal/pages/SchemeDetail";
+import MySchemes from "./pages/Dashboard/Tribal/pages/MySchemes";
+import Land from "./pages/Dashboard/Tribal/pages/Land";
+import Bot from "./pages/Dashboard/Tribal/pages/Bot";
 
 const queryClient = new QueryClient();
 
@@ -105,6 +114,7 @@ const App = () => (
             <Route path="fra-atlas" element={<StateFRAAtlasPage />} />
             {/* <Route path="settings" element={<div className="p-6 gov-text">Settings - Coming Soon</div>} /> */}
           </Route>
+
           <Route
             path="/dashboard/district"
             element={
@@ -126,14 +136,28 @@ const App = () => (
             <Route path="fra-atlas" element={<DistrictFRAAtlasPage />} />
             <Route path="data-ingestion" element={<DataIngestion />} />
           </Route>
+
           <Route
             path="/dashboard/tribal"
             element={
               <ProtectedRoute>
-                <TribalDashboard />
+                <Outlet />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<TribalLogin />} />
+            <Route path="tribedashboard" element={<TribalDashboard />} />
+            <Route path="complaints/new" element={<ComplaintsNew />} />
+            <Route path="complaints" element={<MyComplaints />} />
+            <Route path="complaints/:id" element={<ComplaintDetail />} />
+            <Route path="schemes" element={<TribalSchemes />} />
+            <Route path="schemes/:id" element={<SchemeDetail />} />
+            <Route path="my-schemes" element={<MySchemes />} />
+            <Route path="land" element={<Land />} />
+            <Route path="bot" element={<Bot />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Route>
           <Route
             path="/dashboard/planning"
             element={
